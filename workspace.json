@@ -1,7 +1,99 @@
 {
   "version": 2,
-  "projects": {},
+  "projects": {
+    "platform": {
+      "root": "apps/platform",
+      "sourceRoot": "apps/platform",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/next:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "root": "apps/platform",
+            "outputPath": "dist/apps/platform"
+          },
+          "configurations": {
+            "production": {}
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/next:server",
+          "options": {
+            "buildTarget": "platform:build",
+            "dev": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "platform:build:production",
+              "dev": false
+            }
+          }
+        },
+        "export": {
+          "executor": "@nrwl/next:export",
+          "options": {
+            "buildTarget": "platform:build:production"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/platform"],
+          "options": {
+            "jestConfig": "apps/platform/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/platform/**/*.{ts,tsx,js,jsx}"]
+          }
+        }
+      }
+    },
+    "platform-e2e": {
+      "root": "apps/platform-e2e",
+      "sourceRoot": "apps/platform-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/platform-e2e/cypress.json",
+            "tsConfig": "apps/platform-e2e/tsconfig.e2e.json",
+            "devServerTarget": "platform:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "platform:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/platform-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  },
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
-  }
+    "defaultCollection": "@nrwl/next"
+  },
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    },
+    "@nrwl/next": {
+      "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint"
+      }
+    }
+  },
+  "defaultProject": "platform"
 }
