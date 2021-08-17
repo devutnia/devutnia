@@ -30,8 +30,12 @@
     ]
   },
   "projects": {
-    "lumby": {
+    "platform": {
       "tags": []
+    },
+    "platform-e2e": {
+      "tags": [],
+      "implicitDependencies": ["platform"]
     }
   }
 }
