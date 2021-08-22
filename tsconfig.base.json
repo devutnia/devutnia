@@ -8,6 +8,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "resolveJsonModule": true,
     "target": "es2015",
     "module": "esnext",
     "lib": ["es2017", "dom"],
@@ -15,7 +16,10 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@devutnia/lumby": ["libs/lumby/src/index.ts"]
+      "@devutnia/lumby": ["libs/lumby/src/index.ts"],
+      "@devutnia/lumby/core": ["libs/lumby/src/lib/core/index.ts"],
+      "@devutnia/lumby/inputs": ["libs/lumby/src/lib/components/inputs/index.ts"],
+      "@devutnia/lumby/shared": ["libs/lumby/src/lib/components/shared/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,10 +1,13 @@
 import { AppProps } from 'next/app';
 import Head from 'next/head';
+
+import LumbyProvider from '@devutnia/lumby';
+
 import './styles.css';
 
 function CustomApp({ Component, pageProps }: AppProps) {
   return (
-    <>
+    <LumbyProvider>
       <Head>
         <title>Welcome to platform!</title>
       </Head>
@@ -16,7 +19,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
           <Component {...pageProps} />
         </main>
       </div>
-    </>
+    </LumbyProvider>
   );
 }
 
