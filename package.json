@@ -25,7 +25,8 @@
     "dep-graph": "nx dep-graph",
     "help": "nx help",
     "update:nx": "yarn add -D @nrwl/next @nrwl/react @nrwl/cli @nrwl/node @nrwl/nx-cloud @nrwl/tao @nrwl/workspace",
-    "platform": "nx run platform:serve"
+    "platform": "nx run platform:serve",
+    "lumby:docs": "nx run lumby:storybook"
   },
   "private": true,
   "dependencies": {
