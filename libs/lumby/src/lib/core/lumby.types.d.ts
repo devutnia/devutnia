@@ -26,9 +26,10 @@ export type LumbyColor =
   | 'error';
 
 export interface LumbyKeys {
+  color: LumbyColor;
+  variants: LumbyVariant;
+  decorators: 'elevation' | 'borderRadius';
   size: 'spacing' | 'fontSize' | 'borderWidth';
-  decorators: 'elevation' | 'colors' | 'borderRadius';
-  variants: 'default' | 'plain' | 'primary' | 'secondary';
   status: 'default' | 'error' | 'focus' | 'hover' | 'active' | 'working' | 'disabled';
 }
 

@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge';
-import { transparentize } from 'polished';
+import { darken, transparentize } from 'polished';
 
 import { ExternalConfig } from '../../external';
 import {
@@ -10,30 +10,37 @@ import {
   LumbyVariant,
 } from './lumby.types.d';
 
-const sizeKeys = ['spacing', 'fontSize', 'borderWidth'];
-const decoratorsKeys = ['elevation', 'colors', 'borderRadius'];
-const variantKeys = ['default', 'plain', 'primary', 'secondary'];
-const statusKeys = [
-  'default',
-  'error',
-  'focus',
-  'hover',
-  'active',
-  'working',
-  'disabled',
-];
+// const sizeKeys = ['spacing', 'fontSize', 'borderWidth'];
+// const decoratorsKeys = ['elevation', 'colors', 'borderRadius'];
+// const variantKeys = ['default', 'plain', 'primary', 'secondary'];
+// const statusKeys = [
+//   'default',
+//   'error',
+//   'focus',
+//   'hover',
+//   'active',
+//   'working',
+//   'disabled',
+// ];
 
+interface Select<T> {
+  select: (el: keyof T) => T[keyof T];
+}
+type Operator<K extends string | number, T = unknown> = Record<K, T> &
+  Select<Record<K, T>>;
 export interface ThemeShape {
+  isDark: boolean;
+  colors: Operator<LumbyColor, string>;
   size: Record<LumbyKeys['size'], Record<LumbySize, string | number>>;
   decorators: {
-    colors: Record<LumbyColor, string>;
-    elevation: Record<0 | 1 | 2, string>;
+    elevation: Record<number, string>;
     borderRadius: Record<LumbySize, string | number>;
   };
   variants: Record<LumbyVariant, Record<LumbyKeys['status'], LumbySheet>>;
 }
 
 export class LumbyTheme {
+  isDark = true;
   size: ThemeShape['size'] = {
     spacing: {
       xxs: 4,
@@ -63,23 +70,24 @@ export class LumbyTheme {
       xxl: 32,
     },
   };
+  colors: ThemeShape['colors'] = {
+    plain: 'transparent',
+    default: '#f5f5f5',
+    disabled: '#e0e0e0',
+    dark: '#142c44',
+    light: '#f5f5f5',
+    accent: '#ecac6c',
+    primary: '#332857',
+    secondary: '#a49ccc',
+    ternary: '#a49',
+    error: '#c42c34',
+    select: (color) => this.colors[color],
+  };
   decorators: ThemeShape['decorators'] = {
     elevation: {
       0: 'none',
-      1: `0px 3px 1px -2px #afa8a8, 0px 2px 2px 0px #afa8a8, 0px 1px 5px 0px #afa8a8`,
-      2: `0px 2px 4px -1px #e0e0e0, 0px 4px 5px 0px #e0e0e0, 0px 1px 10px 0px #e0e0e0`,
-    },
-    colors: {
-      plain: 'transparent',
-      default: '#f5f5f5',
-      disabled: '#e0e0e0',
-      dark: '#142c44',
-      light: '#f5f5f5',
-      accent: '#ecac6c',
-      primary: '#332857',
-      secondary: '#a49ccc',
-      ternary: '#a49',
-      error: '#c42c34',
+      1: `0px 2px 2px 0px ${darken(0.2, this.colors.light)}`,
+      2: `0px 3px 3px 0px ${darken(0.3, this.colors.light)}`,
     },
     borderRadius: {
       xxs: 2,
@@ -94,73 +102,139 @@ export class LumbyTheme {
   variants: ThemeShape['variants'] = {
     default: {
       default: {
-        color: this.decorators.colors.dark,
-        borderColor: this.decorators.colors.dark,
-        backgroundColor: this.decorators.colors.default,
+        color: this.colors.light,
+        borderColor: this.colors.accent,
+        backgroundColor: this.colors.dark,
       },
       error: {
-        color: this.decorators.colors.light,
-        borderColor: this.decorators.colors.error,
-        backgroundColor: transparentize(0.5, this.decorators.colors.error),
+        color: this.colors.light,
+        borderColor: this.colors.error,
+        backgroundColor: transparentize(0.5, this.colors.error),
       },
       focus: {
-        borderColor: transparentize(0.6, this.decorators.colors.primary),
+        color: this.colors.accent,
+        borderColor: transparentize(0.6, this.colors.secondary),
+        backgroundColor: transparentize(0.6, this.colors.secondary),
       },
       hover: {
-        backgroundColor: transparentize(0.6, this.decorators.colors.primary),
+        backgroundColor: transparentize(0.6, this.colors.secondary),
       },
       active: {
-        borderColor: transparentize(0.6, this.decorators.colors.primary),
+        color: this.colors.light,
+        borderColor: transparentize(0.6, this.colors.secondary),
       },
       working: {
-        color: this.decorators.colors.light,
-        borderColor: this.decorators.colors.error,
-        backgroundColor: transparentize(0.4, this.decorators.colors.error),
+        color: this.colors.secondary,
+        borderColor: this.colors.secondary,
+        backgroundColor: transparentize(0.4, this.colors.secondary),
       },
       disabled: {
-        color: this.decorators.colors.light,
-        borderColor: this.decorators.colors.error,
-        backgroundColor: this.decorators.colors.disabled,
+        borderColor: this.colors.disabled,
+        backgroundColor: this.colors.disabled,
+        color: darken(0.15, this.colors.disabled),
       },
     },
     plain: {
       default: {
-        color: this.decorators.colors.light,
-        borderColor: this.decorators.colors.error,
-        backgroundColor: transparentize(0.4, this.decorators.colors.error),
+        color: this.colors.light,
+        borderColor: 'transparent',
+        backgroundColor: this.colors.dark,
       },
-      error: {},
-      focus: {},
-      hover: {},
-      active: {},
-      working: {},
-      disabled: {},
+      error: {
+        color: this.colors.light,
+        borderColor: 'transparent',
+        backgroundColor: transparentize(0.5, this.colors.error),
+      },
+      focus: {
+        backgroundColor: transparentize(0.8, this.colors.secondary),
+      },
+      hover: {
+        backgroundColor: transparentize(0.95, this.colors.secondary),
+      },
+      active: {
+        backgroundColor: transparentize(0.8, this.colors.secondary),
+      },
+      working: {
+        borderColor: 'transparent',
+        color: this.colors.secondary,
+        backgroundColor: transparentize(0.4, this.colors.secondary),
+      },
+      disabled: {
+        borderColor: this.colors.disabled,
+        backgroundColor: this.colors.disabled,
+        color: darken(0.15, this.colors.disabled),
+      },
     },
     primary: {
       default: {
-        color: this.decorators.colors.light,
-        borderColor: this.decorators.colors.error,
-        backgroundColor: transparentize(0.4, this.decorators.colors.error),
+        color: this.colors.light,
+        borderColor: this.colors.secondary,
+        backgroundColor: this.colors.primary,
       },
-      error: {},
-      focus: {},
-      hover: {},
-      active: {},
-      working: {},
-      disabled: {},
+      error: {
+        color: this.colors.light,
+        borderColor: transparentize(0.2, this.colors.error),
+        backgroundColor: transparentize(0.4, this.colors.error),
+      },
+      focus: {
+        color: this.colors.accent,
+        borderColor: transparentize(0.6, this.colors.secondary),
+        backgroundColor: transparentize(0.5, this.colors.secondary),
+      },
+      hover: {
+        borderColor: this.colors.secondary,
+        backgroundColor: transparentize(0.5, this.colors.ternary),
+      },
+      active: {
+        color: this.colors.accent,
+        borderColor: transparentize(0.7, this.colors.secondary),
+        backgroundColor: transparentize(0.6, this.colors.secondary),
+      },
+      working: {
+        borderColor: 'transparent',
+        color: this.colors.secondary,
+        backgroundColor: transparentize(0.4, this.colors.secondary),
+      },
+      disabled: {
+        borderColor: this.colors.disabled,
+        backgroundColor: this.colors.disabled,
+        color: darken(0.15, this.colors.disabled),
+      },
     },
     secondary: {
       default: {
-        color: this.decorators.colors.light,
-        borderColor: this.decorators.colors.error,
-        backgroundColor: transparentize(0.4, this.decorators.colors.error),
+        color: this.colors.primary,
+        borderColor: this.colors.secondary,
+        backgroundColor: this.colors.secondary,
       },
-      error: {},
-      focus: {},
-      hover: {},
-      active: {},
-      working: {},
-      disabled: {},
+      error: {
+        color: this.colors.light,
+        borderColor: 'transparent',
+        backgroundColor: transparentize(0.4, this.colors.error),
+      },
+      focus: {
+        color: this.colors.accent,
+        borderColor: transparentize(0.4, this.colors.secondary),
+        backgroundColor: transparentize(0.8, this.colors.secondary),
+      },
+      hover: {
+        borderColor: this.colors.secondary,
+        backgroundColor: transparentize(0.4, this.colors.secondary),
+      },
+      active: {
+        color: this.colors.accent,
+        backgroundColor: transparentize(0.6, this.colors.secondary),
+      },
+      working: {
+        borderColor: 'transparent',
+        color: this.colors.secondary,
+        backgroundColor: transparentize(0.4, this.colors.secondary),
+      },
+      disabled: {
+        borderColor: this.colors.disabled,
+        backgroundColor: this.colors.disabled,
+        color: darken(0.15, this.colors.disabled),
+      },
     },
   };
 }

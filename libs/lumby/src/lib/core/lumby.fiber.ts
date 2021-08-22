@@ -60,8 +60,8 @@ export const FiberLayer = styled('div', {
     ...styles.elevate(),
     ...styles.variant(),
     ...fiber?.stylesheet,
-    '&:hover': { ...styles.variant('hover') },
-    '&:focus': { ...styles.variant('focus') },
+    '&:hover': { ...styles.variant('hover'), ...styles.elevate(1) },
+    '&:focus': { ...styles.variant('focus'), ...styles.elevate(1) },
     '&:active': { ...styles.variant('active') },
   });
 });

@@ -4,7 +4,6 @@ import { useCallback, useEffect } from 'react';
 import { LumbyFiber, lumbyClient, fiberStylesheet, lumbyFiber } from '../core';
 
 export function useFiber(fid = 'fiber_default', addFiber?: Partial<LumbyFiber>) {
-  const baseFiber = new LumbyFiber();
   const isDefault = fid && fid === 'fiber_default';
 
   const set = lumbyClient.useSetFiber();
@@ -27,6 +26,6 @@ export function useFiber(fid = 'fiber_default', addFiber?: Partial<LumbyFiber>) 
   return {
     setFiber,
     fiber: lumbyFiber({ ...fiber, ...addFiber }),
-    styles: fiberStylesheet({ ...baseFiber, ...fiber, ...addFiber }),
+    styles: fiberStylesheet({ ...fiber, ...addFiber }),
   };
 }

@@ -12,13 +12,13 @@ const globalStyles = css`
     outline: none;
   }
   body.light-mode {
-    color: ${theme.decorators.colors.dark};
-    background-color: ${theme.decorators.colors.light};
+    color: ${theme.colors.dark};
+    background-color: ${theme.colors.light};
     transition: background-color 0.1s ease-out;
   }
   body.dark-mode {
-    color: ${theme.decorators.colors.light};
-    background-color: ${theme.decorators.colors.dark};
+    color: ${theme.colors.light};
+    background-color: ${theme.colors.dark};
     transition: background-color 0.2s ease-in;
   }
 `;
