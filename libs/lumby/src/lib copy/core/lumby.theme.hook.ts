@@ -2,11 +2,11 @@ import { diff } from 'just-diff';
 import useDarkMode from 'use-dark-mode';
 import { useCallback, useEffect } from 'react';
 
-import { LumbyTheme, lumbyClient } from '../core';
+import { LumbyTheme, lumbyRoots } from '../core';
 
-export function useLumby(newTheme?: Partial<LumbyTheme>) {
+export function useLumbyTheme(newTheme?: Partial<LumbyTheme>) {
   const darkMode = useDarkMode(false);
-  const setTheme = lumbyClient.useSetTheme();
+  const setTheme = lumbyRoots.useSetTheme();
 
   useEffect(() => {
     if (newTheme) setTheme(newTheme);
@@ -21,7 +21,7 @@ export function useLumby(newTheme?: Partial<LumbyTheme>) {
     [darkMode, setTheme]
   );
 
-  const theme = lumbyClient(
+  const theme = lumbyRoots(
     useCallback((lumby) => lumby.theme, []),
     (prev, next) => diff([prev], [next]).length === 0
   );

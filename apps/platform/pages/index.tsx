@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 import { Button } from '@devutnia/lumby/inputs';
-import { useFiber } from '@devutnia/lumby/core';
+import { useLumbyFiber } from '@devutnia/lumby/core';
 
 const StyledPage = styled.div`
   .page {
@@ -9,7 +9,7 @@ const StyledPage = styled.div`
 `;
 
 export function Index() {
-  const { setFiber } = useFiber('12345');
+  const { setFiber } = useLumbyFiber('12345');
 
   const onClick = () => {
     setFiber({ error: true });

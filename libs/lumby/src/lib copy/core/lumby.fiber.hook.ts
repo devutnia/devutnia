@@ -1,12 +1,12 @@
 import { diff } from 'just-diff';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
-import { LumbyFiber, lumbyClient, fiberStylesheet, lumbyFiber } from '../core';
+import { LumbyFiber, lumbyRoots, lumbyFiber, fiberStyles } from '../core';
 
-export function useFiber(fid = 'fiber_default', addFiber?: Partial<LumbyFiber>) {
+export function useLumbyFiber(fid = 'fiber_default', addFiber?: Partial<LumbyFiber>) {
   const isDefault = fid && fid === 'fiber_default';
 
-  const set = lumbyClient.useSetFiber();
+  const set = lumbyRoots.useSetFiber();
 
   useEffect(() => {
     if (!isDefault && addFiber) set(fid, addFiber);
@@ -18,14 +18,16 @@ export function useFiber(fid = 'fiber_default', addFiber?: Partial<LumbyFiber>) 
     [fid, isDefault, set]
   );
 
-  const fiber = lumbyClient(
+  const fiber = lumbyRoots(
     useCallback((lumby) => lumby.fibers[fid], [fid]),
     (prev, next) => diff([prev], [next]).length === 0
   );
 
+  const styles = useMemo(() => fiberStyles({ ...fiber, ...addFiber }), [addFiber, fiber]);
+
   return {
+    styles,
     setFiber,
     fiber: lumbyFiber({ ...fiber, ...addFiber }),
-    styles: fiberStylesheet({ ...fiber, ...addFiber }),
   };
 }
