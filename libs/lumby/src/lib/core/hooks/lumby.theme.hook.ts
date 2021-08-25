@@ -2,7 +2,7 @@ import { diff } from 'just-diff';
 import useDarkMode from 'use-dark-mode';
 import { useCallback, useEffect } from 'react';
 
-import { LumbyTheme, lumbyRoots } from '../core';
+import { LumbyTheme, lumbyRoots } from '../../core';
 
 export function useLumbyTheme(newTheme?: Partial<LumbyTheme>) {
   const darkMode = useDarkMode(false);

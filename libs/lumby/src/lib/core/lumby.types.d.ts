@@ -38,21 +38,22 @@ export interface FiberRoots {
   fibers: Record<string, Partial<LumbyFiber>>;
   setFiber: (fid: string, newFiber: Partial<LumbyFiber>) => void;
 }
-export interface FiberStyles {
+export interface FiberProps {}
+export interface FrameStylesResult {
   margin: (size?: ThemeSize) => string;
   padding: (size?: ThemeSize) => string;
   fontSize: (size?: ThemeSize) => string;
+  width: (width?: string | number) => string;
+  height: (height?: string | number) => string;
+  display: (display?: Property.Display) => string;
+  borderRadius: (corners?: ThemeSize | 'disk') => string;
+}
+export interface CanvasStylesResult {
   color: (status?: ThemeStatus) => string;
   boxShadow: (shadow?: 0 | 1 | 2) => string;
-  width: (width?: string | number) => string;
   cursor: (cursor?: Property.Cursor) => string;
-  height: (height?: string | number) => string;
-  alignContent: (n?: GridContent[0]) => string;
   borderColor: (status?: ThemeStatus) => string;
-  justifyContent: (n?: GridContent[1]) => string;
-  display: (display?: Property.Display) => string;
   backgroundColor: (status?: ThemeStatus) => string;
-  borderRadius: (corners?: ThemeSize | 'disk') => string;
 }
 export interface FiberStylesheetProps {
   styles: FiberStyles;

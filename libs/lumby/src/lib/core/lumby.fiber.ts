@@ -4,90 +4,67 @@ import { css } from '@emotion/react';
 import isPropValid from '@emotion/is-prop-valid';
 
 import { lumbyTheme } from './lumby.theme';
-import { useLumbyFiber } from './lumby.fiber.hook';
-import { FiberStylesheetProps, ThemeSize, ThemeVariant } from './lumby.types.d';
+import { canvasCSS, fiberCanvasStyles, fiberFrameStyles, frameCSS } from './lumby.utils';
+import { ThemeSize, ThemeVariant, FiberStylesheetProps } from './lumby.types.d';
 
-export class LumbyFiber {
+export class LumbyFiberFrame {
   show = true;
-  flat = false;
   block = false;
+  size: ThemeSize = 'md';
+  margins?: ThemeSize = undefined;
+  paddings?: ThemeSize = undefined;
+  corners: ThemeSize | 'disk' = 'md';
+  full: 'page' | 'screen' | 'none' = 'none';
+}
+export class LumbyFiberCanvas extends LumbyFiberFrame {
+  flat = false;
   error = false;
   elevate = false;
   working = false;
   disabled = false;
+  variant: ThemeVariant = 'plain';
+}
+export class LumbyFiber extends LumbyFiberCanvas {
   theme = lumbyTheme();
-  size: ThemeSize = 'md';
-  variant: ThemeVariant = 'default';
-  corners: ThemeSize | 'disk' = 'md';
-  full: 'page' | 'screen' | 'none' = 'none';
-
-  margins?: ThemeSize = undefined;
-  paddings?: ThemeSize = undefined;
-  fid?: string | undefined = undefined;
-  stylesheet?: (props: FiberStylesheetProps) => ReturnType<typeof css> | undefined =
-    undefined;
+  fid?: string = undefined;
+  stylesheet?: (props: FiberStylesheetProps) => unknown;
 }
 
-export const FiberLayer = styled('div', {
-  label: 'lumby-fiber',
+export function lumbyFiber(
+  newFiber: Partial<LumbyFiber>,
+  oldFiber: Partial<LumbyFiber> = new LumbyFiber()
+) {
+  const fiber = deepmerge(oldFiber, newFiber);
+  const { fid, stylesheet, theme, ...canvas } = fiber;
+  const { disabled, working, elevate, error, variant, ...frame } = canvas;
+  const styles = {
+    frame: (newFiber?: Partial<LumbyFiber>) => fiberFrameStyles(newFiber || fiber),
+    canvas: (newFiber?: Partial<LumbyFiber>) => fiberCanvasStyles(newFiber || fiber),
+  };
+
+  return { fiber, frame, canvas, styles };
+}
+
+export const FiberCanvas = styled('div', {
+  label: 'canvas',
   shouldForwardProp: isPropValid,
 })<Partial<LumbyFiber>>((props) => {
-  const { styles } = useLumbyFiber(props?.fid, props);
+  const { styles } = lumbyFiber(props);
 
-  return css({
-    border: '2px solid',
-    transition: 'all .07s ease-in',
-
-    color: styles.color(),
-    width: styles.width(),
-    cursor: styles.cursor(),
-    height: styles.height(),
-    margin: styles.margin(),
-    display: styles.display(),
-    padding: styles.padding(),
-    fontSize: styles.fontSize(),
-    boxShadow: styles.boxShadow(),
-    borderColor: styles.borderColor(),
-    borderRadius: styles.borderRadius(),
-    backgroundColor: styles.backgroundColor(),
-
-    '&:hover': {
-      color: styles.color('hover'),
-      boxShadow: styles.boxShadow(1),
-      borderColor: styles.borderColor('hover'),
-      backgroundColor: styles.backgroundColor('hover'),
-    },
-
-    '&:focus': {
-      color: styles.color('focus'),
-      boxShadow: styles.boxShadow(1),
-      borderColor: styles.borderColor('focus'),
-      backgroundColor: styles.backgroundColor('focus'),
-    },
-
-    '&:active': {
-      color: styles.color('active'),
-      borderColor: styles.borderColor('active'),
-      backgroundColor: styles.backgroundColor('active'),
-    },
-  });
+  return css`
+    ${canvasCSS(styles.canvas())};
+    ${frameCSS(styles.frame())};
+  `;
 });
 
-const baseFiber = new LumbyFiber();
-const fiberTips = Object.keys(baseFiber) as (keyof LumbyFiber)[];
+export const FiberFrame = styled('div', {
+  label: 'frame',
+  shouldForwardProp: isPropValid,
+})<Partial<LumbyFiber>>((props) => {
+  const { styles } = lumbyFiber(props);
 
-export function lumbyFiber(newFiber: Partial<LumbyFiber>) {
-  const newTips = newFiber && (Object.keys(newFiber) as (keyof LumbyFiber)[]);
-
-  if (newFiber && newTips) {
-    return newTips.reduce((fiber, tip) => {
-      if (fiberTips.includes(tip)) {
-        if (tip === 'theme' && newFiber?.theme) {
-          fiber.theme = deepmerge(baseFiber.theme, newFiber.theme);
-        } else if (newFiber?.[tip]) fiber[tip] = newFiber[tip] as never;
-      }
-      return fiber;
-    }, {} as Partial<LumbyFiber>);
-  }
-  return newFiber;
-}
+  return css`
+    position: relative;
+    ${frameCSS(styles.frame())};
+  `;
+});

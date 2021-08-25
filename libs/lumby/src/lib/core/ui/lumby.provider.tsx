@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Global, ThemeProvider, Interpolation, css } from '@emotion/react';
 
-import { useLumbyTheme, lumbyTheme, LumbyTheme } from '../core';
+import { useLumbyTheme, lumbyTheme, LumbyTheme } from '../../core';
 
 export interface LumbyProviderProps {
   theme?: Partial<LumbyTheme>;

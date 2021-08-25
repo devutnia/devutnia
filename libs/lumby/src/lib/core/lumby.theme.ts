@@ -226,16 +226,16 @@ export class LumbyTheme {
   };
 }
 
-const m = <T extends LumbyTheme>(a: T, b: Partial<T>) => deepmerge<T>(a, b);
-
+const merge = <T extends LumbyTheme>(a: T, b: Partial<T>) => deepmerge<T>(a, b);
 export function lumbyTheme(newTheme?: Partial<LumbyTheme>) {
   const theme = new LumbyTheme();
 
-  // if lumby.config.json exists in folder root - merge it with the rest
+  // if lumby.config.json exists in project root - merge it with the rest
   const externalTheme = Object.create(ExternalConfig.theme) as LumbyTheme;
 
-  if (!externalTheme && newTheme) return m(theme, newTheme);
-  if (externalTheme && !newTheme) return m(theme, externalTheme);
-  if (externalTheme && newTheme) return m(theme, m(externalTheme, newTheme));
+  if (!externalTheme && newTheme) return merge(theme, newTheme);
+  if (externalTheme && !newTheme) return merge(theme, externalTheme);
+  if (externalTheme && newTheme) return merge(theme, merge(externalTheme, newTheme));
+
   return theme;
 }

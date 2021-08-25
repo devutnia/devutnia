@@ -1,167 +1,129 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { rem } from 'polished';
 import { Property } from 'csstype';
 
-import { LumbyFiber } from './lumby.fiber';
+import { lumbyFiber, LumbyFiber } from './lumby.fiber';
 import {
-  GridTypes,
   ThemeSize,
-  GridStyles,
-  GridContent,
-  FiberStyles,
   ThemeStatus,
+  FrameStylesResult,
+  CanvasStylesResult,
 } from './lumby.types.d';
-import { GridProps } from '../components';
+import { css } from '@emotion/react';
 
-export const fiberStyles = (newFiber?: Partial<LumbyFiber>): FiberStyles => {
-  const fiber = { ...new LumbyFiber(), ...newFiber } as LumbyFiber;
-  const { theme, margins, paddings, show, size, block, full } = fiber;
+export const canvasCSS = (canvas: CanvasStylesResult) => css`
+  color: ${canvas.color()};
+  cursor: ${canvas.cursor()};
+  box-shadow: ${canvas.boxShadow()};
+  border-color: ${canvas.borderColor()};
+  background-color: ${canvas.backgroundColor()};
+`;
+export const fiberCanvasStyles = (newFiber: Partial<LumbyFiber>): CanvasStylesResult => {
+  const {
+    fiber: { theme },
+    canvas,
+  } = lumbyFiber(newFiber);
+
+  const variant = (
+    status: ThemeStatus = 'default',
+    style: 'backgroundColor' | 'color' | 'borderColor'
+  ) => {
+    const selected = theme.variants[canvas.variant];
+    // order of error | disabled | working is important
+    if (canvas.error) return selected.error[style] as string;
+    if (canvas.disabled) return selected.disabled[style] as string;
+    if (canvas.working) return selected.working[style] as string;
+    return selected[status][style] as string;
+  };
+  const cursor = (cursor?: string) =>
+    canvas.disabled || canvas.error
+      ? 'not-allowed'
+      : canvas.working
+      ? 'progress'
+      : cursor || 'default';
+  const boxShadow = (shadow = 0) => {
+    if (
+      (canvas.variant === 'plain' && !canvas.elevate) ||
+      canvas.flat ||
+      canvas.disabled ||
+      canvas.error
+    ) {
+      return 'none';
+    }
+    const elevation = theme.decorators.elevation;
+    if (canvas.elevate) {
+      if (canvas.variant === 'plain') return elevation[1];
+      else return elevation[shadow + 1];
+    } else return elevation[shadow + 0];
+  };
+
+  return {
+    cursor,
+    boxShadow,
+    color: (status) => variant(status, 'color'),
+    borderColor: (status) => variant(status, 'borderColor'),
+    backgroundColor: (status) => variant(status, 'backgroundColor'),
+  };
+};
+
+export const frameCSS = (frame: FrameStylesResult) => css`
+  width: ${frame.width()};
+  height: ${frame.height()};
+  margin: ${frame.margin()};
+  display: ${frame.display()};
+  padding: ${frame.padding()};
+  font-size: ${frame.fontSize()};
+  border-radius: ${frame.borderRadius()};
+`;
+export const fiberFrameStyles = (newFiber: Partial<LumbyFiber>): FrameStylesResult => {
+  const {
+    frame,
+    fiber: { theme },
+  } = lumbyFiber(newFiber);
 
   const height = (height?: string | number) => {
-    if (full !== 'none') return full === 'screen' ? '100vh' : '100%';
+    if (frame.full !== 'none') return frame.full === 'screen' ? '100vh' : '100%';
     return height ? rem(height) : 'fit-content';
   };
   const width = (width?: string | number) => {
-    if (full !== 'none') return full === 'screen' ? '100vw' : '100%';
-    if (block) return '100%';
+    if (frame.full !== 'none') return frame.full === 'screen' ? '100vw' : '100%';
+    if (frame.block) return '100%';
     return width ? rem(width) : 'fit-content';
   };
-
   const spacing = (on: 'margins' | 'paddings', size?: ThemeSize) => {
+    const space = (on: ThemeSize) => rem(theme.size.spacing[size || on]);
     const calc = (space: number | string) =>
       typeof space === 'number'
         ? `${space / 2}px ${space + (space / space + 2)}px`
         : `calc(${space} / 2) calc(${space} + (${space} + (${space} / ${space} + 2)))`;
 
     if (on === 'margins') {
-      if (margins) return rem(theme.size.spacing[size || margins]);
+      if (frame.margins) return space(frame.margins);
     } else {
-      if (paddings) return rem(theme.size.spacing[size || paddings]);
+      if (frame.paddings) return space(frame.paddings);
     }
-    return calc(theme.size.spacing[size || fiber.size]);
+
+    return calc(theme.size.spacing[size || frame.size]);
   };
-
-  const cursor = (cursor?: string) =>
-    fiber.disabled || fiber.error
-      ? 'not-allowed'
-      : fiber.working
-      ? 'progress'
-      : cursor || 'default';
-
-  const borderRadius = (corners?: ThemeSize | 'disk') =>
-    fiber.corners === 'disk'
-      ? '100%'
-      : fiber.corners === 'none'
-      ? 'none'
-      : rem(fiber.theme.decorators.borderRadius[corners || fiber.corners]);
-
-  const boxShadow = (shadow = 0) => {
-    if (
-      (fiber.variant === 'plain' && !fiber.elevate) ||
-      fiber.flat ||
-      fiber.disabled ||
-      fiber.error
-    ) {
-      return 'none';
-    }
-    if (fiber.elevate) {
-      if (fiber.variant === 'plain') return fiber.theme.decorators.elevation[1];
-      else return fiber.theme.decorators.elevation[shadow + 1];
-    } else return fiber.theme.decorators.elevation[shadow + 0];
-  };
-
-  const variant = (
-    status: ThemeStatus = 'default',
-    style: 'backgroundColor' | 'color' | 'borderColor'
-  ) => {
-    const selected = fiber.theme.variants[fiber.variant];
-    if (fiber.error) return selected.error[style] as string;
-    if (fiber.disabled) return selected.disabled[style] as string;
-    if (fiber.working) return selected.working[style] as string;
-    return selected[status][style] as string;
-  };
-
-  const fontSize = (size?: ThemeSize) =>
-    rem(fiber.theme.size.fontSize[size || fiber.size]);
 
   const display = (display: Property.Display = 'flex') =>
-    show === false || size === 'none' ? 'none' : display;
+    frame.show === false || frame.size === 'none' ? 'none' : display;
 
-  const placeItems = <T extends GridContent[0]>(axis: 'x' | 'y', n?: T) => {
-    const isX = axis === 'x';
-    const mindAxis = (n?: T) => n && (isX ? n < 0 : n > 0);
-    return n === 8
-      ? 'stretch'
-      : n === 0
-      ? 'center'
-      : !n || mindAxis(n)
-      ? 'flex-start'
-      : 'flex-end';
-  };
+  const borderRadius = (corners?: ThemeSize | 'disk') =>
+    frame.corners === 'disk'
+      ? '100%'
+      : frame.corners === 'none'
+      ? 'none'
+      : rem(theme.decorators.borderRadius[corners || frame.corners]);
+
+  const fontSize = (size?: ThemeSize) => rem(theme.size.fontSize[size || frame.size]);
 
   return {
     width,
-    cursor,
     height,
     display,
     fontSize,
-    boxShadow,
     borderRadius,
-    alignContent: (n) => placeItems('y', n),
-    justifyContent: (n) => placeItems('x', n),
     margin: (size) => spacing('margins', size),
-    color: (status) => variant(status, 'color'),
     padding: (size) => spacing('paddings', size),
-    borderColor: (status) => variant(status, 'borderColor'),
-    backgroundColor: (status) => variant(status, 'backgroundColor'),
   };
 };
-
-export function gridStyles(props: Partial<GridProps>): GridStyles {
-  const fiber = fiberStyles(props);
-
-  const placeItems = <T extends GridContent[0]>(axis: 'x' | 'y', n?: T) => {
-    const isX = axis === 'x';
-    const mindAxis = (n?: T) => n && (isX ? n < 0 : n > 0);
-    return n === 8 ? 'stretch' : n === 0 ? 'center' : !n || mindAxis(n) ? 'start' : 'end';
-  };
-
-  const template = <T extends GridTypes>(
-    axis: 'x' | 'y',
-    [type, ...terms]: T,
-    newType?: T[0]
-  ): string => {
-    const isX = axis === 'x';
-
-    if (type === 'repeat' && axis === 'x') return 'auto';
-
-    if (newType === 'iterate' || type === 'iterate') {
-      const [[nRow, sizeRow], [nCol, sizeCol]] = terms as any[];
-      const n = isX ? nRow : nCol;
-      const size = isX ? sizeRow : sizeCol;
-      return `repeat(${n}, ${size ? rem(size) : '1fr'})`;
-    }
-
-    if (newType === 'describe' || type === 'describe') {
-      const [row, col] = terms as any[];
-      return isX ? row : col;
-    }
-
-    const [min, max] = terms as any[];
-    const minmax = (n?: unknown) => {
-      if (!n) return '1fr';
-      if (typeof n !== 'number') return n;
-      return rem(n);
-    };
-
-    return `repeat(auto-fit, minmax(${minmax(min)}, ${minmax(max)}))`;
-  };
-
-  return {
-    display: fiber.display,
-    alignItems: (n) => placeItems('y', n),
-    justifyItems: (n) => placeItems('x', n),
-    gridTemplateRows: (type) => template('x', props.grid!, type),
-    gridTemplateColumns: (type) => template('y', props.grid!, type),
-  };
-}

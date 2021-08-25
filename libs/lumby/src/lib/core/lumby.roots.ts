@@ -5,7 +5,7 @@ import vanilla, { GetState, SetState } from 'zustand/vanilla';
 import { createSelectorHooks } from 'auto-zustand-selectors-hook';
 
 import { lumbyTheme } from './lumby.theme';
-import { LumbyFiber, lumbyFiber } from './lumby.fiber';
+import { lumbyFiber, LumbyFiber } from './lumby.fiber';
 import { LumbyRoots, FiberRoots, ThemeRoots } from './lumby.types';
 
 const fiberRoots = (
