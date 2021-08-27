@@ -12,7 +12,7 @@ declare module '@emotion/react' {
 
 export interface LumbyRoots extends FiberRoots, ThemeRoots {}
 export type LumbyExtends<Tag extends keyof JSX.IntrinsicElements> =
-  JSX.IntrinsicElements[Tag] & JSX.IntrinsicElements['div'] & Partial<LumbyFiber>;
+  JSX.IntrinsicElements[Tag] & JSX.IntrinsicElements['div'] & Partial<FiberCanvasProps>;
 
 export type GridGap = [row: number | string, col: number | string];
 export type GridContent = [x?: -1 | 0 | 1 | 8, y?: -1 | 0 | 1 | 8];
@@ -38,26 +38,25 @@ export interface FiberRoots {
   fibers: Record<string, Partial<LumbyFiber>>;
   setFiber: (fid: string, newFiber: Partial<LumbyFiber>) => void;
 }
-export interface FiberProps {}
-export interface FrameStylesResult {
-  margin: (size?: ThemeSize) => string;
-  padding: (size?: ThemeSize) => string;
-  fontSize: (size?: ThemeSize) => string;
-  width: (width?: string | number) => string;
-  height: (height?: string | number) => string;
-  display: (display?: Property.Display) => string;
-  borderRadius: (corners?: ThemeSize | 'disk') => string;
+export interface FiberCanvasProps extends LumbyFiber {
+  as?: ElementType<Theme>;
 }
-export interface CanvasStylesResult {
-  color: (status?: ThemeStatus) => string;
-  boxShadow: (shadow?: 0 | 1 | 2) => string;
-  cursor: (cursor?: Property.Cursor) => string;
-  borderColor: (status?: ThemeStatus) => string;
-  backgroundColor: (status?: ThemeStatus) => string;
-}
-export interface FiberStylesheetProps {
-  styles: FiberStyles;
-  fiber: Omit<LumbyFiber, 'stylesheet'>;
+export interface StylesheetResult {
+  margin: (size?: ThemeSize) => string | undefined;
+  padding: (size?: ThemeSize) => string | undefined;
+  fontSize: (size?: ThemeSize) => string | undefined;
+  color: (status?: ThemeStatus) => string | undefined;
+  boxShadow: (shadow?: 0 | 1 | 2) => string | undefined;
+  width: (width?: string | number) => string | undefined;
+  alignItems: (n?: GridContent[0]) => string | undefined;
+  cursor: (cursor?: Property.Cursor) => string | undefined;
+  height: (height?: string | number) => string | undefined;
+  alignContent: (n?: GridContent[0]) => string | undefined;
+  borderColor: (status?: ThemeStatus) => string | undefined;
+  justifyContent: (n?: GridContent[1]) => string | undefined;
+  display: (display?: Property.Display) => string | undefined;
+  backgroundColor: (status?: ThemeStatus) => string | undefined;
+  borderRadius: (corners?: ThemeSize | 'disk') => string | undefined;
 }
 
 type ThemeSheet = CSSObject;
@@ -87,7 +86,7 @@ interface ThemeRoots {
   setTheme: (newTheme: Partial<LumbyTheme>) => void;
 }
 
-declare module '@devutnia/lumby' {
+declare module 'lumby/types' {
   export namespace Lumby {
     interface Roots extends LumbyRoots {}
     type Extends<Tag extends keyof JSX.IntrinsicElements> = LumbyExtends<Tag>;

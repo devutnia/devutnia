@@ -1,0 +1,272 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+import * as LumbyConfig from '../../../external/index';
+
+<Meta title="Core/Config" component={LumbyConfig} />
+
+## Lumby Config
+
+To provide your own theming, you can use either of the three ways of supplying styles. <br/>
+
+#### - `<LumbyProvider theme={<your_theme>} />`
+
+`LumbyProvider` takes an optional property `theme` that let's you merge the new theme with the default one. <br/>
+Wrap `LumbyProvider` around the entry point of your app. Here's how it's done in next.js project.
+
+```typescript
+// _app.tsx
+
+import LumbyProvider from '@devutnia/lumby';
+
+const myTheme = {...}
+
+function App({ Component, pageProps }: AppProps) {
+  return (
+    <LumbyProvider theme={myTheme}>
+      <Component {...pageProps} />
+    </LumbyProvider>
+  );
+}
+```
+
+#### - `useLumbyTheme(<your_theme>)`
+
+`useLumbyTheme` hook can either take new theme as an argument on mount or it returns `setTheme` callback
+that let's you update theme stored in a global store whenever. You can also use `toggleTheme`
+to change it, but it'll toggle between dark/light modes on top of switching themes.
+
+```typescript
+import { useLumbyTheme } from '@devutnia/lumby/core';
+
+const myTheme = {...}
+
+const { setTheme } = useLumbyTheme(newTheme?: Partial<LumbyTheme>);
+const onClick = () => {
+  setTheme(myTheme) // updates Lumby's theme
+}
+
+// or update when component mounts
+
+const theme = useLumbyTheme(myTheme);
+
+// or set new theme AND switch to different mode
+
+const darkTheme = {...}
+const lightTheme = {...}
+
+const { toggleTheme, darkMode } = useLumbyTheme(darkTheme);
+const isDark = darkMode.value === true;
+const onClick = () => toggleTheme(isDark ? lightTheme : darkTheme)
+```
+
+#### - `lumby.config.json`
+
+The default theme can be provided using json object from a `lumby.config.json` file placed in your project's root. <br />
+This is not required, as if there's no default theme setup provided, it will be substituted by Lumby's defaults.
+Lumby's config was inspired by tailwindcss. See below for an example of a proper setup: <br/>
+
+```typescript
+{
+  "theme": {
+    "isDark": true,
+    "size": {
+      "spacing": {
+        "none": 0,
+        "xxs": 4,
+        "xs": 8,
+        "sm": 12,
+        "md": 16,
+        "lg": 24,
+        "xl": 36,
+        "xxl": 48,
+      },
+      "fontSize": {
+        "none": 0,
+        "xxs": 10,
+        "xs": 12,
+        "sm": 14,
+        "md": 16,
+        "lg": 22,
+        "xl": 28,
+        "xxl": 36,
+      },
+      "borderWidth": {
+        "none": 0,
+        "xxs": 10,
+        "xs": 12,
+        "sm": 14,
+        "md": 16,
+        "lg": 20,
+        "xl": 26,
+        "xxl": 32,
+      },
+    };
+    "colors": {
+      "plain": 'transparent',
+      "default": '#f5f5f5',
+      "disabled": '#e0e0e0',
+      "dark": '#142c44',
+      "light": '#f5f5f5',
+      "accent": '#ecac6c',
+      "primary": '#332857',
+      "secondary": '#a49ccc',
+      "ternary": '#a49',
+      "error": '#c42c34',
+    };
+    "decorators": {
+      "elevation": {
+        0: 'none',
+        1: `0px 1px 1px 1px ${transparentize(0.9, this.colors.light)}`,
+        2: `0px 3px 3px 0px ${transparentize(0.8, this.colors.light)}`,
+      },
+      "borderRadius": {
+        "none": 0,
+        "xxs": 2,
+        "xs": 3,
+        "sm": 4,
+        "md": 6,
+        "lg": 10,
+        "xl": 16,
+        "xxl": 24,
+        "disk": '100%',
+      },
+    };
+    "variants": {
+      "default": {
+        "default": {
+          "color": this.colors.light,
+          "borderColor": this.colors.accent,
+          "backgroundColor": this.colors.dark,
+        },
+        "error": {
+          "color": this.colors.light,
+          "borderColor": this.colors.error,
+          "backgroundColor": transparentize(0.5, this.colors.error),
+        },
+        "focus": {
+          "color": this.colors.accent,
+          "borderColor": transparentize(0.6, this.colors.secondary),
+          "backgroundColor": transparentize(0.6, this.colors.secondary),
+        },
+        "hover": {
+          "backgroundColor": transparentize(0.6, this.colors.secondary),
+        },
+        "active": {
+          "color": this.colors.light,
+          "borderColor": transparentize(0.6, this.colors.secondary),
+        },
+        "working": {
+          "color": this.colors.secondary,
+          "borderColor": this.colors.secondary,
+          "backgroundColor": transparentize(0.4, this.colors.secondary),
+        },
+        "disabled": {
+          "opacity": '0.6',
+          "borderColor": this.colors.disabled,
+          "backgroundColor": this.colors.disabled,
+          "color": darken(0.15, this.colors.disabled),
+        },
+      },
+      "plain": {
+        "default": {
+          "color": this.colors.light,
+          "borderColor": 'transparent',
+          "backgroundColor": transparentize(0.95, this.colors.light),
+        },
+        "error": {
+          "color": this.colors.light,
+          "borderColor": 'transparent',
+          "backgroundColor": transparentize(0.5, this.colors.error),
+        },
+        "focus": {},
+        "hover": {},
+        "active": {},
+        "working": {
+          "borderColor": 'transparent',
+          "color": this.colors.secondary,
+          "backgroundColor": transparentize(0.4, this.colors.secondary),
+        },
+        "disabled": {
+          "opacity": '0.6',
+          "borderColor": this.colors.disabled,
+          "backgroundColor": this.colors.disabled,
+          "color": darken(0.15, this.colors.disabled),
+        },
+      },
+      "primary": {
+        "default": {
+          "color": this.colors.light,
+          "borderColor": this.colors.secondary,
+          "backgroundColor": this.colors.primary,
+        },
+        "error": {
+          "color": this.colors.light,
+          "borderColor": transparentize(0.2, this.colors.error),
+          "backgroundColor": transparentize(0.4, this.colors.error),
+        },
+        "focus": {
+          "color": this.colors.accent,
+          "borderColor": transparentize(0.6, this.colors.secondary),
+          "backgroundColor": transparentize(0.5, this.colors.secondary),
+        },
+        "hover": {
+          "borderColor": this.colors.secondary,
+          "backgroundColor": transparentize(0.5, this.colors.ternary),
+        },
+        "active": {
+          "color": this.colors.accent,
+          "borderColor": transparentize(0.7, this.colors.secondary),
+          "backgroundColor": transparentize(0.6, this.colors.secondary),
+        },
+        "working": {
+          "borderColor": 'transparent',
+          "color": this.colors.secondary,
+          "backgroundColor": transparentize(0.4, this.colors.secondary),
+        },
+        "disabled": {
+          "opacity": '0.6',
+          "borderColor": this.colors.disabled,
+          "backgroundColor": this.colors.disabled,
+          "color": darken(0.15, this.colors.disabled),
+        },
+      },
+      "secondary": {
+        "default": {
+          "color": this.colors.primary,
+          "borderColor": this.colors.secondary,
+          "backgroundColor": this.colors.secondary,
+        },
+        "error": {
+          "color": this.colors.light,
+          "borderColor": 'transparent',
+          "backgroundColor": transparentize(0.4, this.colors.error),
+        },
+        "focus": {
+          "color": this.colors.accent,
+          "borderColor": transparentize(0.4, this.colors.secondary),
+          "backgroundColor": transparentize(0.8, this.colors.secondary),
+        },
+        "hover": {
+          "borderColor": this.colors.secondary,
+          "backgroundColor": transparentize(0.4, this.colors.secondary),
+        },
+        "active": {
+          "color": this.colors.accent,
+          "backgroundColor": transparentize(0.6, this.colors.primary),
+        },
+        "working": {
+          "borderColor": 'transparent',
+          "color": this.colors.secondary,
+          "backgroundColor": transparentize(0.4, this.colors.secondary),
+        },
+        "disabled": {
+          "opacity": '0.6',
+          "borderColor": this.colors.disabled,
+          "backgroundColor": this.colors.disabled,
+          "color": darken(0.15, this.colors.disabled),
+        },
+      },
+    };
+  }
+}
+```

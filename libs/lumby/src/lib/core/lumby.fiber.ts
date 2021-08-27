@@ -4,30 +4,35 @@ import { css } from '@emotion/react';
 import isPropValid from '@emotion/is-prop-valid';
 
 import { lumbyTheme } from './lumby.theme';
-import { canvasCSS, fiberCanvasStyles, fiberFrameStyles, frameCSS } from './lumby.utils';
-import { ThemeSize, ThemeVariant, FiberStylesheetProps } from './lumby.types.d';
+import { canvasStylesheet } from './lumby.utils';
+import { useLumbyFiber } from '.';
+import {
+  ThemeSize,
+  GridContent,
+  ThemeVariant,
+  StylesheetResult,
+  FiberCanvasProps,
+} from './lumby.types.d';
 
-export class LumbyFiberFrame {
+export class LumbyCanvas {
   show = true;
-  block = false;
-  size: ThemeSize = 'md';
-  margins?: ThemeSize = undefined;
-  paddings?: ThemeSize = undefined;
-  corners: ThemeSize | 'disk' = 'md';
-  full: 'page' | 'screen' | 'none' = 'none';
-}
-export class LumbyFiberCanvas extends LumbyFiberFrame {
   flat = false;
+  block = false;
   error = false;
   elevate = false;
   working = false;
   disabled = false;
-  variant: ThemeVariant = 'plain';
-}
-export class LumbyFiber extends LumbyFiberCanvas {
   theme = lumbyTheme();
+  size: ThemeSize = 'md';
+  content: GridContent = [-1, 0];
+  variant: ThemeVariant = 'default';
+  margins: ThemeSize | 'size' = 'size';
+  paddings: ThemeSize | 'size' = 'size';
+  full: 'page' | 'screen' | 'none' = 'none';
+  corners: ThemeSize | 'disk' | 'size' = 'size';
+}
+export class LumbyFiber extends LumbyCanvas {
   fid?: string = undefined;
-  stylesheet?: (props: FiberStylesheetProps) => unknown;
 }
 
 export function lumbyFiber(
@@ -35,36 +40,70 @@ export function lumbyFiber(
   oldFiber: Partial<LumbyFiber> = new LumbyFiber()
 ) {
   const fiber = deepmerge(oldFiber, newFiber);
-  const { fid, stylesheet, theme, ...canvas } = fiber;
-  const { disabled, working, elevate, error, variant, ...frame } = canvas;
-  const styles = {
-    frame: (newFiber?: Partial<LumbyFiber>) => fiberFrameStyles(newFiber || fiber),
-    canvas: (newFiber?: Partial<LumbyFiber>) => fiberCanvasStyles(newFiber || fiber),
-  };
-
-  return { fiber, frame, canvas, styles };
+  // dirty hack to prevent deepmerge from adding items to `content` prop tuple
+  fiber.content = newFiber.content as never;
+  return { fiber, canvas: () => canvasStylesheet(fiber) };
 }
 
-export const FiberCanvas = styled('div', {
-  label: 'canvas',
+export const FiberLayer = styled('div', {
+  label: 'fiber-canvas',
   shouldForwardProp: isPropValid,
-})<Partial<LumbyFiber>>((props) => {
-  const { styles } = lumbyFiber(props);
+})<Partial<FiberCanvasProps>>((props) => {
+  const fiber = useLumbyFiber(props.fid, props);
 
-  return css`
-    ${canvasCSS(styles.canvas())};
-    ${frameCSS(styles.frame())};
-  `;
-});
+  const styles = {} as any;
+  const canvas = fiber.canvas();
 
-export const FiberFrame = styled('div', {
-  label: 'frame',
-  shouldForwardProp: isPropValid,
-})<Partial<LumbyFiber>>((props) => {
-  const { styles } = lumbyFiber(props);
+  // loop styling attributes and apply canvas styling to existing ones
+  (Object.keys(canvas) as (keyof StylesheetResult)[]).forEach((attr) => {
+    if (canvas[attr]) styles[attr] = canvas[attr]();
+  });
 
-  return css`
-    position: relative;
-    ${frameCSS(styles.frame())};
-  `;
+  return css({
+    ...styles,
+    ...(() => {
+      if (fiber.fiber.corners === 'disk') {
+        return {
+          minWidth: 10,
+          minHeight: 10,
+          lineHeight: 1,
+          textAlign: 'center',
+          width: 'fit-content',
+          whiteSpace: 'nowrap',
+          height: 'fit-content',
+        };
+      } else return undefined;
+    })(),
+
+    '&:before': (() => {
+      if (fiber.fiber.corners === 'disk') {
+        return {
+          height: 0,
+          content: '""',
+          paddingTop: '100%',
+          verticalAlign: 'middle',
+        };
+      } else return undefined;
+    })(),
+
+    '&:hover': {
+      color: canvas.color('hover'),
+      boxShadow: canvas.boxShadow(1),
+      borderColor: canvas.borderColor('hover'),
+      backgroundColor: canvas.backgroundColor('hover'),
+    },
+
+    '&:focus': {
+      color: canvas.color('focus'),
+      boxShadow: canvas.boxShadow(1),
+      borderColor: canvas.borderColor('focus'),
+      backgroundColor: canvas.backgroundColor('focus'),
+    },
+
+    '&:active': {
+      color: canvas.color('active'),
+      borderColor: canvas.borderColor('active'),
+      backgroundColor: canvas.backgroundColor('active'),
+    },
+  });
 });

@@ -26,5 +26,5 @@ export function useLumbyTheme(newTheme?: Partial<LumbyTheme>) {
     (prev, next) => diff([prev], [next]).length === 0
   );
 
-  return { theme, toggleTheme, darkMode };
+  return { theme, toggleTheme, darkMode, setTheme };
 }

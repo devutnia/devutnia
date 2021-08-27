@@ -17,9 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@devutnia/lumby": ["libs/lumby/src/index.ts"],
-      "@devutnia/lumby/core": ["libs/lumby/src/lib/core/index.ts"],
-      "@devutnia/lumby/inputs": ["libs/lumby/src/lib/components/inputs/index.ts"],
-      "@devutnia/lumby/shared": ["libs/lumby/src/lib/components/shared/index.ts"]
+      "@devutnia/lumby/core": ["libs/lumby/src/lib/core/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

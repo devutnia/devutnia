@@ -14,7 +14,7 @@ const fiberRoots = (
 ): FiberRoots => ({
   fibers: { fiber_default: new LumbyFiber() },
   setFiber: (fid, newFiber) => {
-    const fiber = lumbyFiber({ ...get().fibers[fid], ...newFiber });
+    const fiber = lumbyFiber({ ...get().fibers[fid], ...newFiber }).fiber;
     if (fid) set(produce((lumby) => void (lumby.fibers[fid] = fiber) as never));
   },
   unsetFiber: (fid) => {

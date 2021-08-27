@@ -1,0 +1,41 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+import * as Provider from '../../core/lumby.provider';
+
+<Meta title="Core/Provider" component={Provider} />
+
+## Lumby Provider
+
+`LumbyProvider` is a wrapper on top of `ThemeProvider` from `emotionjs` that extends the original provider's functionality. <br/>
+It uses `useLumbyTheme` hook internally that reacts to changes to theme's properties. The provider takes the `theme` property.
+It is optional, because Lumby also read's the default theme from `lumby.config.json` from your project's root.
+The optional `globalStyles` property allows passing an array of CSS objects to extend/overwrite whatever you fancy.
+
+```typescript
+import { useLumbyTheme, lumbyTheme, LumbyTheme } from '../core';
+
+export interface LumbyProviderProps {
+  theme?: Partial<LumbyTheme>;
+  globalStyles?: Interpolation<LumbyTheme>[];
+}
+
+export const LumbyProvider: React.FC<LumbyProviderProps> = ({
+  theme,
+  children,
+  globalStyles,
+}) => {
+  const lumby = useLumbyTheme(lumbyTheme(theme));
+
+  const renderGlobals = useMemo(
+    () => globalStyles?.map((style, i) => <Global key={i} styles={style} />),
+    [globalStyles]
+  );
+
+  return (
+    <ThemeProvider theme={lumby.theme}>
+      {renderGlobals}
+      {children}
+    </ThemeProvider>
+  );
+};
+```

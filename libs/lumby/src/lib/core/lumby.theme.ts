@@ -209,7 +209,7 @@ export class LumbyTheme {
       },
       active: {
         color: this.colors.accent,
-        backgroundColor: transparentize(0.6, this.colors.secondary),
+        backgroundColor: transparentize(0.6, this.colors.primary),
       },
       working: {
         borderColor: 'transparent',

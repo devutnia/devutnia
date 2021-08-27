@@ -6,7 +6,7 @@ import * as Roots from '../../core/lumby.roots';
 
 ## Lumby Roots
 
-Lumby roots consist of two function expressions: `roots` and `lumbyRoots`.
+Lumby roots consist of two functions: `roots` and `lumbyRoots`.
 Both are created with `zustand` and their purpose is to provide reactive global storage for Lumby's components.
 
 #### - `roots`
@@ -35,7 +35,7 @@ export const roots = vanilla<LumbyRoots>((set, get) => ({
 #### - `lumbyRoots`
 
 `lumbyRoots` is the main function used within the library. It is using [auto-zustand-selectors-hook](https://githubmemory.com/repo/Albert-Gao/auto-zustand-selectors-hook)
-library to cut down on the extra boilerplate generated while using zustand selectors.
+library to cut down on the extra boilerplate generated while using zustand selectors. There isn't much boilerplate to begin with, by I wanted to field-test this tool.
 
 ```typescript
 import create from 'zustand';

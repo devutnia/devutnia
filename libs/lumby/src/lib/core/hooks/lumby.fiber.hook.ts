@@ -18,12 +18,12 @@ export function useLumbyFiber(fid = 'fiber_default', addFiber: Partial<LumbyFibe
     [fid, isDefault, set]
   );
 
-  const thisFiber = lumbyRoots(
+  const oldFiber = lumbyRoots(
     useCallback((lumby) => lumby.fibers[fid], [fid]),
     (prev, next) => diff([prev], [next]).length === 0
   );
 
-  const layer = useMemo(() => lumbyFiber(addFiber, thisFiber), [addFiber, thisFiber]);
+  const layer = useMemo(() => lumbyFiber(addFiber, oldFiber), [addFiber, oldFiber]);
 
   return { setFiber, ...layer };
 }

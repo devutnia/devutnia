@@ -1,4 +1,5 @@
-import LumbyProvider, { LumbyTheme } from '../src';
+import LumbyProvider from '../src';
+import { LumbyTheme } from '../src/lib/core';
 
 const theme = new LumbyTheme();
 

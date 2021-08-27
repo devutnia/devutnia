@@ -1,129 +1,118 @@
 import { rem } from 'polished';
 import { Property } from 'csstype';
 
-import { lumbyFiber, LumbyFiber } from './lumby.fiber';
-import {
-  ThemeSize,
-  ThemeStatus,
-  FrameStylesResult,
-  CanvasStylesResult,
-} from './lumby.types.d';
-import { css } from '@emotion/react';
+import { LumbyFiber } from './lumby.fiber';
+import { ThemeSize, GridContent, ThemeStatus, StylesheetResult } from './lumby.types.d';
 
-export const canvasCSS = (canvas: CanvasStylesResult) => css`
-  color: ${canvas.color()};
-  cursor: ${canvas.cursor()};
-  box-shadow: ${canvas.boxShadow()};
-  border-color: ${canvas.borderColor()};
-  background-color: ${canvas.backgroundColor()};
-`;
-export const fiberCanvasStyles = (newFiber: Partial<LumbyFiber>): CanvasStylesResult => {
-  const {
-    fiber: { theme },
-    canvas,
-  } = lumbyFiber(newFiber);
+export const canvasStylesheet = (newFiber: LumbyFiber): StylesheetResult => {
+  const fiber = newFiber || new LumbyFiber();
+  const { decorators, variants, size } = fiber.theme;
+
+  const borderRadius = (corners?: ThemeSize | 'disk' | 'size') =>
+    fiber.corners === 'disk'
+      ? '100%'
+      : fiber.corners === 'size'
+      ? rem(decorators.borderRadius[fiber.size])
+      : rem(decorators.borderRadius[(corners || fiber.corners) as never]);
 
   const variant = (
     status: ThemeStatus = 'default',
     style: 'backgroundColor' | 'color' | 'borderColor'
   ) => {
-    const selected = theme.variants[canvas.variant];
+    const selected = variants[fiber.variant];
     // order of error | disabled | working is important
-    if (canvas.error) return selected.error[style] as string;
-    if (canvas.disabled) return selected.disabled[style] as string;
-    if (canvas.working) return selected.working[style] as string;
-    return selected[status][style] as string;
+    if (fiber.error) return selected.error[style] as string;
+    if (fiber.disabled) return selected.disabled[style] as string;
+    if (fiber.working) return selected.working[style] as string;
+    return selected?.[status][style] as string;
   };
+
   const cursor = (cursor?: string) =>
-    canvas.disabled || canvas.error
+    fiber.disabled || fiber.error
       ? 'not-allowed'
-      : canvas.working
+      : fiber.working
       ? 'progress'
       : cursor || 'default';
-  const boxShadow = (shadow = 0) => {
+
+  const boxShadow = (elevation = 0) => {
     if (
-      (canvas.variant === 'plain' && !canvas.elevate) ||
-      canvas.flat ||
-      canvas.disabled ||
-      canvas.error
+      (fiber.variant === 'plain' && !fiber.elevate) ||
+      fiber.flat ||
+      fiber.disabled ||
+      fiber.error
     ) {
       return 'none';
     }
-    const elevation = theme.decorators.elevation;
-    if (canvas.elevate) {
-      if (canvas.variant === 'plain') return elevation[1];
-      else return elevation[shadow + 1];
-    } else return elevation[shadow + 0];
+    if (fiber.elevate) {
+      if (fiber.variant === 'plain') return decorators.elevation[1];
+      else return decorators.elevation[elevation + 1];
+    } else return decorators.elevation[elevation + 0];
   };
 
-  return {
-    cursor,
-    boxShadow,
-    color: (status) => variant(status, 'color'),
-    borderColor: (status) => variant(status, 'borderColor'),
-    backgroundColor: (status) => variant(status, 'backgroundColor'),
-  };
-};
-
-export const frameCSS = (frame: FrameStylesResult) => css`
-  width: ${frame.width()};
-  height: ${frame.height()};
-  margin: ${frame.margin()};
-  display: ${frame.display()};
-  padding: ${frame.padding()};
-  font-size: ${frame.fontSize()};
-  border-radius: ${frame.borderRadius()};
-`;
-export const fiberFrameStyles = (newFiber: Partial<LumbyFiber>): FrameStylesResult => {
-  const {
-    frame,
-    fiber: { theme },
-  } = lumbyFiber(newFiber);
-
-  const height = (height?: string | number) => {
-    if (frame.full !== 'none') return frame.full === 'screen' ? '100vh' : '100%';
-    return height ? rem(height) : 'fit-content';
-  };
-  const width = (width?: string | number) => {
-    if (frame.full !== 'none') return frame.full === 'screen' ? '100vw' : '100%';
-    if (frame.block) return '100%';
-    return width ? rem(width) : 'fit-content';
-  };
-  const spacing = (on: 'margins' | 'paddings', size?: ThemeSize) => {
-    const space = (on: ThemeSize) => rem(theme.size.spacing[size || on]);
+  const spacing = (on: 'margins' | 'paddings', newSize?: ThemeSize | 'size') => {
     const calc = (space: number | string) =>
       typeof space === 'number'
         ? `${space / 2}px ${space + (space / space + 2)}px`
         : `calc(${space} / 2) calc(${space} + (${space} + (${space} / ${space} + 2)))`;
 
-    if (on === 'margins') {
-      if (frame.margins) return space(frame.margins);
-    } else {
-      if (frame.paddings) return space(frame.paddings);
+    const space = (on: ThemeSize | 'size') =>
+      rem(fiber.theme.size.spacing[(newSize as never) || on]);
+
+    if (on === 'margins' && fiber.margins !== 'size') {
+      if (fiber.margins) return space(fiber.margins);
+    }
+    if (on === 'paddings') {
+      if (fiber.paddings && fiber.paddings !== 'size') return space(fiber.paddings);
+      if (fiber.corners === 'disk') return space(fiber.size);
     }
 
-    return calc(theme.size.spacing[size || frame.size]);
+    return calc(size.spacing[(newSize as never) || fiber.size]);
+  };
+
+  const fontSize = (newSize?: ThemeSize) => rem(size.fontSize[newSize || fiber.size]);
+
+  const placeItems = <T extends GridContent[0]>(axis: 'x' | 'y', n?: T) => {
+    const isX = axis === 'x';
+    const pos = n || fiber.content[isX ? 0 : 1];
+    const mindAxis = (pos?: any) => (isX ? pos < 0 : pos > 0);
+    return pos === 8
+      ? 'stretch'
+      : pos === 0 || fiber.corners === 'disk'
+      ? 'center'
+      : !pos || mindAxis(pos)
+      ? 'flex-start'
+      : 'flex-end';
+  };
+
+  const height = (height?: string | number) => {
+    if (fiber.full !== 'none') return fiber.full === 'screen' ? '100vh' : '100%';
+    return height ? rem(height) : 'fit-content';
+  };
+
+  const width = (width?: string | number) => {
+    if (fiber.full !== 'none') return fiber.full === 'screen' ? '100vw' : '100%';
+    if (fiber.block) return '100%';
+    return width ? rem(width) : 'fit-content';
   };
 
   const display = (display: Property.Display = 'flex') =>
-    frame.show === false || frame.size === 'none' ? 'none' : display;
-
-  const borderRadius = (corners?: ThemeSize | 'disk') =>
-    frame.corners === 'disk'
-      ? '100%'
-      : frame.corners === 'none'
-      ? 'none'
-      : rem(theme.decorators.borderRadius[corners || frame.corners]);
-
-  const fontSize = (size?: ThemeSize) => rem(theme.size.fontSize[size || frame.size]);
+    fiber.show === false || fiber.size === 'none' ? 'none' : display;
 
   return {
     width,
     height,
+    cursor,
     display,
     fontSize,
+    boxShadow,
     borderRadius,
+    alignItems: (n) => placeItems('y', n),
+    alignContent: (n) => placeItems('x', n),
+    justifyContent: (n) => placeItems('x', n),
     margin: (size) => spacing('margins', size),
+    color: (status) => variant(status, 'color'),
     padding: (size) => spacing('paddings', size),
+    borderColor: (status) => variant(status, 'borderColor'),
+    backgroundColor: (status) => variant(status, 'backgroundColor'),
   };
 };
