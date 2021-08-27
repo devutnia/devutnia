@@ -1,0 +1,59 @@
+import { Meta, Story, Canvas } from '@storybook/addon-docs';
+
+import * as Roots from '../../core/lumby.roots';
+
+<Meta title="Core/Roots" component={Roots} />
+
+## Lumby Roots
+
+Lumby roots consist of two functions: `roots` and `lumbyRoots`.
+Both are created with `zustand` and their purpose is to provide reactive global storage for Lumby's components.
+
+#### - `roots`
+
+`roots` are created using `zustand/vanilla`. It can be either consummed outside of React of injected into React components.
+
+```typescript
+// zustand vanilla store
+import vanilla from 'zustand/vanilla';
+
+export interface LumbyRoots {
+  fibers: Record<string, Partial<LumbyFiber>>;
+  setFiber: (fid: string, newFiber: Partial<LumbyFiber>) => void;
+  unsetFiber: (fid: string) => boolean;
+
+  theme: LumbyTheme;
+  setTheme: (newTheme: Partial<LumbyTheme>) => void;
+}
+
+export const roots = vanilla<LumbyRoots>((set, get) => ({
+  ...fiberRoots(set, get), // slice of state
+  ...themeRoots(set, get),
+}));
+```
+
+#### - `lumbyRoots`
+
+`lumbyRoots` is the main function used within the library. It is using [auto-zustand-selectors-hook](https://githubmemory.com/repo/Albert-Gao/auto-zustand-selectors-hook)
+library to cut down on the extra boilerplate generated while using zustand selectors. There isn't much boilerplate to begin with, by I wanted to field-test this tool.
+
+```typescript
+import create from 'zustand';
+import { createSelectorHooks } from 'auto-zustand-selectors-hook';
+
+// zustand react store based on vanilla store
+export const lumbyRoots = createSelectorHooks(create(roots));
+```
+
+### Devtools
+
+Lumby is using [simple-zustand-devtools](https://github.com/beerose/simple-zustand-devtools#readme)
+to provide some dev-ex related feedback. It is available in browser's DevTools in `Components` tab.
+
+```typescript
+import { mountStoreDevtool } from 'simple-zustand-devtools';
+
+if (process.env.NODE_ENV === 'development' && typeof window !== 'undefined') {
+  mountStoreDevtool('lumby-roots', lumbyRoots);
+}
+```

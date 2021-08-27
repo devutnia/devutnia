@@ -1,6 +1,84 @@
 {
   "version": 2,
   "projects": {
+    "lumby": {
+      "root": "libs/lumby",
+      "sourceRoot": "libs/lumby/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/lumby/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/lumby"],
+          "options": {
+            "jestConfig": "libs/lumby/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "storybook": {
+          "executor": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/react",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/lumby/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "executor": "@nrwl/storybook:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "uiFramework": "@storybook/react",
+            "outputPath": "dist/storybook/lumby",
+            "config": {
+              "configFolder": "libs/lumby/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      }
+    },
+    "lumby-e2e": {
+      "root": "apps/lumby-e2e",
+      "sourceRoot": "apps/lumby-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/lumby-e2e/cypress.json",
+            "tsConfig": "apps/lumby-e2e/tsconfig.e2e.json",
+            "devServerTarget": "lumby:storybook"
+          },
+          "configurations": {
+            "ci": {
+              "devServerTarget": "lumby:storybook:ci"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/lumby-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
     "platform": {
       "root": "apps/platform",
       "sourceRoot": "apps/platform",

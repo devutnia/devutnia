@@ -30,6 +30,13 @@
     ]
   },
   "projects": {
+    "lumby": {
+      "tags": []
+    },
+    "lumby-e2e": {
+      "tags": [],
+      "implicitDependencies": ["lumby"]
+    },
     "platform": {
       "tags": []
     },

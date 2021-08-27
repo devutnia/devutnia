@@ -1,0 +1,34 @@
+{
+  "theme": {
+    "size": {
+      "spacing": {},
+      "fontSize": {},
+      "borderWidth": {}
+    },
+    "decorators": {
+      "elevation": "",
+      "colors": {},
+      "borderRadius": {}
+    },
+    "variants": {
+      "default": {
+        "default": {},
+        "error": {},
+        "focus": {},
+        "hover": {},
+        "active": {},
+        "working": {},
+        "disabled": {}
+      },
+      "plain": {
+        "default": {}
+      },
+      "primary": {
+        "default": {}
+      },
+      "secondary": {
+        "default": {}
+      }
+    }
+  }
+}
