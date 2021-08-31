@@ -1,5 +1,7 @@
 # Devutnia
 
+To read Devutnia's mainfesto (in Polish) click [here](https://github.com/devutnia/devutnia/blob/main/DEVUTNIA.md).
+
 Welcome to Devutnia's monorepo. <br/>
 It is a home of all projects developed by Devutnia's devs.
 
