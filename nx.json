@@ -1,7 +1,10 @@
 {
   "npmScope": "devutnia",
   "affected": {
-    "defaultBase": "master"
+    "defaultBase": "main"
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/workspace"
   },
   "implicitDependencies": {
     "package.json": {
@@ -14,10 +17,13 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "ZGYxZTMxMzYtMWFkYi00YTU2LWEyNzctOGRkMzliZWI0MmM2fHJlYWQtd3JpdGU=",
-        "canTrackAnalytics": false,
-        "showUsageWarnings": true
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e"
+        ],
+        "accessToken": "Y2JhM2Q1MWItN2NhYi00OWNiLWJhZTQtMWZkNWY2NmE3Y2MyfHJlYWQtd3JpdGU="
       }
     }
   },
@@ -28,21 +34,5 @@
         "projects": "dependencies"
       }
     ]
-  },
-  "projects": {
-    "lumby": {
-      "tags": []
-    },
-    "lumby-e2e": {
-      "tags": [],
-      "implicitDependencies": ["lumby"]
-    },
-    "platform": {
-      "tags": []
-    },
-    "platform-e2e": {
-      "tags": [],
-      "implicitDependencies": ["platform"]
-    }
   }
 }
