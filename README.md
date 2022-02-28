@@ -1,28 +1,13 @@
-# Devutnia
+# Devutnia - junior-oriented open-source software house and programmers collective
 
-To read Devutnia's mainfesto (in Polish) click [here](https://github.com/devutnia/devutnia/blob/main/DEVUTNIA.md).
+<div style="display: flex; align-items: center; justify-content: center; height: 500px;">
+  <div style="padding: 20px; border-radius: 100%; display: flex; align-items: center; justify-content: center; background-color: #eeeddd; width: 383px">
+    <img src="https://files.slack.com/files-pri/T02B0G4657G-F02SH0WN3HP/image_from_ios.png?pub_secret=6dde954a97" width="300">
+  </div>
+</div>
 
-Welcome to Devutnia's monorepo. <br/>
-It is a home of all projects developed by Devutnia's devs.
+## About this repository
 
-We are currently working on:
+This repo holds all open-source projects, libraries and packages created by Devutnia's developers.
 
-- [Lumby](https://github.com/devutnia/devutnia/tree/main/libs/lumby/README.md) - UI tool for rapid MVP software development
-
-To start working on Devutnia's projects simply clone/fork this repo and install node modules (we're using Yarn).
-
-After that you can run one of these commands to interact with Devutnia's monorepo contents (or check the exsting commands in `package.json`).
-
-```javascript
-// it starts up a next.js instance (there's not much going on there ATM)
-yarn platform
-
-// this one starts up Lumby's .storybook instance that contains
-// documentation for Lumby's components
-yarn lumby:docs
-```
-
-And that's pretty much it. The project itself is fresh and we're
-building up speed :)
-
-We are on [slack](https://join.slack.com/t/devutnia/shared_invite/zt-uauopfmu-tEGDHG5e8MimoMirYoErGg) - come say hi ;)
+It's a work in progress
