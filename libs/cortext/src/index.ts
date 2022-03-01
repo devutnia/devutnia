@@ -1,1 +1,1 @@
-export * from './lib/cortext';
+export {};
