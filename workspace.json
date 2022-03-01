@@ -1,6 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "cortext": "libs/cortext"
+    "cortext": "libs/cortext",
+    "toolbelt": "libs/toolbelt"
   }
 }
