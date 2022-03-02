@@ -60,5 +60,25 @@ describe('Test context', () => {
         { item: 'whaaaat' },
       ]);
     });
+
+    // it(`changing "listOfObjects" in various ways should work`, () => {
+    //   fiber(
+    //     (src) => src.listOfObjects,
+    //     (ctx, infer) => {
+    //       ctx.data.push({ item: 'duuude' });
+    //       infer(ctx);
+    //     }
+    //   );
+
+    //   const matter = fiber(
+    //     (src) => src.listOfObjects,
+    //     (ctx, infer) => ({
+    //       add: (item: typeof ctx.data[0]) => {
+    //         ctx.data.push(item);
+    //         infer(ctx);
+    //       },
+    //     })
+    //   );
+    // });
   });
 });

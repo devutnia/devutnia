@@ -1,5 +1,5 @@
-import { proxy } from 'valtio/vanilla';
 import { proxyMap } from 'valtio/utils';
+import { proxy, snapshot, subscribe } from 'valtio/vanilla';
 import { isEmpty, isEqual } from '@devutnia/toolbelt';
 
 import { logic } from './logic';
@@ -15,8 +15,22 @@ export const source = function Source<Src extends object>(src: Src) {
     return sel(result);
   };
 
+  const listen = <Sel extends (src: Src) => ReturnType<Sel>>(
+    sel: Sel,
+    echo: (next: ReturnType<Sel>) => void
+  ) => {
+    const path = logic.selectorPath(sel);
+
+    return subscribe(source.fibers, () => {
+      let snap = snapshot(source.fibers).get(path.key) as ReturnType<Sel>;
+      echo(snap);
+      snap = undefined as never;
+    });
+  };
+
   return {
     read,
+    listen,
     chart: () => Object.fromEntries(source.fibers.entries()),
     write: <Sel extends (src: Src) => ReturnType<Sel>>(
       sel: Sel,
