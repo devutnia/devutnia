@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@devutnia/cortext": ["libs/cortext/src/index.ts"]
+      "@devutnia/cortext": ["libs/cortext/src/index.ts"],
+      "@devutnia/toolbelt": ["libs/toolbelt/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
