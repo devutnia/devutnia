@@ -12,9 +12,6 @@ export const test_Data = {
     object_1: { item: 'object_1' },
     object_2: { item: 'object_2' },
   },
-  functionOfNone: <T>(data: T) => {
-    return data;
-  },
 };
 
 export const test_Results = {
@@ -37,9 +34,6 @@ export const test_Results = {
     object_1: { item: 'object_1' },
     object_2: { item: 'object_2' },
     object_3: { item: 'object_3', addendum: 'addendum_3' },
-  },
-  functionOfNone: <T>(data: T) => {
-    return data;
   },
 };
 
