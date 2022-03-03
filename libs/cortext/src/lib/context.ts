@@ -6,7 +6,7 @@ import { logic } from './logic';
 import { source } from './source';
 
 type Next<T> = (T extends object ? Partial<T> : T) | ((data: T) => void);
-interface ContextMatter<Src extends object> {
+export interface ContextMatter<Src extends object> {
   <Sel extends (src: Src) => ReturnType<Sel>, Mtr extends undefined>(
     sel: Sel,
     mtr?: Mtr
