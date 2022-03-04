@@ -1,3 +1,5 @@
+// https://gist.github.com/jsjain/a2ba5d40f20e19f734a53c0aad937fbb
+
 export const isEqual = <T extends Record<string | keyof T, T[keyof T]>>(
   a: T,
   b: T
