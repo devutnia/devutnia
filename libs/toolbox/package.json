@@ -2,6 +2,10 @@
   "name": "@devutnia/toolbox",
   "version": "0.0.1",
   "dependencies": {
-    "flat": "^5.0.2"
+    "flat": "^5.0.2",
+    "lodash.isequal": "^4.5.0"
+  },
+  "devDependencies": {
+    "@types/lodash.isequal": "^4.5.5"
   }
 }

@@ -1,12 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-var-requires */
 
-import { deepStrictEqual } from 'assert';
+const equal = require('lodash.isequal');
 
-export const isEqual = <T>(a: T, b: T) => {
-  try {
-    deepStrictEqual(a, b);
-    return true;
-  } catch {
-    return false;
-  }
-};
+export const isEqual = <T>(a: T, b: T) => equal(a, b);

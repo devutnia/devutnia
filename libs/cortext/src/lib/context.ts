@@ -15,14 +15,22 @@ export const context = <Src extends Record<keyof Src, Src[keyof Src]>>(
   >(sel: Sel, mtr?: Mtr) {
     const ctx = { data: deepClone(resource.read(sel)) as ReturnType<Sel> };
 
+    resource.listen(sel, (next) => {
+      let draft = Object.assign({ ...ctx.data }, next);
+      if (!isEqual(ctx.data, draft)) {
+        ctx.data = logic.recontext(ctx.data, draft);
+      }
+      draft = undefined as never;
+    });
+
     const infer = (next: Next<ReturnType<Sel>>) => {
       let clone = logic.recontext(ctx.data, next.data) as never;
-      if (!isEqual(ctx.data, clone))
+      if (!isEqual(ctx.data, clone)) {
         ctx.data = logic.recontext(ctx.data, clone);
+      }
       if (!isEqual(resource.read(sel) || {}, clone)) resource.write(sel, clone);
       clone = undefined as never;
     };
-
     let result = (mtr || (() => void undefined))(ctx, infer);
     if (!result) result = ctx.data as never;
 
