@@ -1,7 +1,7 @@
 export const test_Data = {
-  listOfObjects: [{ item: 'object_1' }],
-  objectOfLists: { list_1: [{ item: 'object_1' }] } as Record<string, unknown[]>,
-  mapOfObjects: new Map<string, { item: string }>([['object_1', { item: 'object_1' }]]),
+  listOfObjects: [{ item: 'object_1' }, { item: 'object_2' }],
+  objectOfLists: { list_1: [{ item: 'object_1' }] },
+  mapOfObjects: new Map([['object_1', { item: 'object_1' }]]),
   objectOfPrimitives: {
     int: 1,
     bool: true,
@@ -20,7 +20,7 @@ export const test_Results = {
     list_1: [{ item: 'object_1' }],
     list_2: ['potato', 'tomato'],
   },
-  mapOfObjects: new Map<string, { item: string }>([
+  mapOfObjects: new Map([
     ['object_1', { item: 'object_1' }],
     ['object_2', { item: 'object_2' }],
   ]),

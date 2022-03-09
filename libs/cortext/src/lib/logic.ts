@@ -1,28 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { flatten, unflatten } from 'flat';
-import { isEmpty } from '@devutnia/toolbelt';
+
+import { fromPaths, isEmpty } from '@devutnia/toolbelt';
 
 type Path = { steps: string[]; key: string };
 
 export const logic = {
-  unflatten: <T>(o: T) => unflatten(o) as T,
-  flatten: <T>(o: T) => flatten(o, { safe: true }) as T,
-  selectorPath: <Sel extends (src: any) => any>(sel: Sel): Path => {
-    const steps = sel.toString().split('.').slice(1);
-    return { steps, key: steps.join('.') };
-  },
-  reapply: <T>(o: T, n: ((data: T) => void) | Partial<T>) => {
-    let u = { d: o };
-    if (typeof n === 'function') n(u.d);
-    else if (typeof n !== 'object') u.d = n as T;
-    else u.d = Object.assign(u.d, n);
-    u = undefined as never;
+  recontext: <T>(o: T, n: T extends object ? Partial<T> : T) => {
+    if (typeof o !== 'object') o = n as T;
+    else o = Object.assign({ d: o }, { d: n }).d as T;
     return o;
+  },
+  selectorPath: <Sel extends (src: never) => never>(sel: Sel): Path => {
+    const path = sel.toString();
+    const steps = path.split('.').slice(1);
+    const key = steps
+      .join('.')
+      .replace(/\[([0-9]+)\]/g, '.$1')
+      .replace(/\['(.*?)'\]/g, '.$1');
+    return { steps, key };
   },
   grabNearbyPaths: <T>(fibers: Map<string, any>, path: Path) => {
     const o = Object.create({});
-
-    for (const [k, v] of fibers.entries()) k.includes(path.key) && (o[k] = v);
+    for (const [k, v] of fibers.entries()) k.includes(path.steps[0]) && (o[k] = v);
     return o as T;
   },
   checkPathForClues: <T>(fibers: Map<string, any>, path: Path) => {
@@ -30,21 +29,17 @@ export const logic = {
     const fnSelector = path.key.match(/\(([^)]+)\)/) || path.key.match(/\(\)/);
 
     const parent = (idx?: number) => path.key.substring(0, idx);
-    let p: string;
-    if (arrSelector) p = parent(arrSelector.index);
-    else if (fnSelector) p = parent(fnSelector.index).split('.')[0];
-    else p = path.steps[0];
+    if (arrSelector) path.key = parent(arrSelector.index);
+    if (fnSelector) path.key = parent(fnSelector.index);
 
-    return logic.grabNearbyPaths(fibers, { key: p, steps: [p] }) as T;
+    return logic.grabNearbyPaths<T>(fibers, path);
   },
-  determineResultFromPath: <T>(fibers: Map<string, any>, path: Path) => {
+  determineCtxFromPath: <T>(fibers: Map<string, any>, path: Path) => {
     let o = fibers.get(path.key) as T | undefined;
-    if (o) o = { [path.key]: o } as never;
+    if (o) o = { [path.key]: o } as never as T;
     if (isEmpty(o)) o = logic.grabNearbyPaths(fibers, path);
-    if (isEmpty(o)) o = logic.checkPathForClues<T>(fibers, path);
-
-    if (isEmpty(o)) throw new Error(`Cortext: this type of selector is not yet handled!`);
-
-    return logic.unflatten(o) as T;
+    if (isEmpty(o)) o = logic.checkPathForClues(fibers, path);
+    if (isEmpty(o)) o = Object.fromEntries(fibers.entries()) as T;
+    return fromPaths(o);
   },
 };
