@@ -1,18 +1,16 @@
-export declare namespace Cortext {
-  type Space<T> = { [K in keyof T]: T[K] extends object ? Space<T[K]> : T[K] };
+export type Next<T> = { data: T extends object ? Partial<T> : T };
 
-  type Source = <Src extends Space<Src>>(src: Src) => { read: ReadSrc; write: WriteSrc };
-
-  type ReadSrc<Src extends Space<Src>> = <Sel extends (src: Src) => ReturnType<Sel>>(
-    sel: Sel
-  ) => ReturnType<Sel>;
-
-  type WriteSrc<Src extends Space<Src>> = <Sel extends (src: Src) => ReturnType<Sel>>(
+export type ContextImpulse<T, Mtr extends ContextImpulse<T, Mtr>> = (
+  ctx: { data: T },
+  infer: (next: Next<T>) => void
+) => ReturnType<Mtr>;
+export interface ContextFiber<Src extends Record<keyof Src, Src[keyof Src]>> {
+  <Sel extends (src: Src) => ReturnType<Sel>>(sel: Sel): Readonly<ReturnType<Sel>>;
+  <
+    Sel extends (src: Src) => ReturnType<Sel>,
+    Mtr extends ContextImpulse<ReturnType<Sel>, Mtr>
+  >(
     sel: Sel,
-    next: ReturnType<Sel> extends FunctionConstructor
-      ? (ctx: ReturnType<Sel>) => void
-      : ReturnType<Sel> extends object
-      ? Partial<ReturnType<Sel>>
-      : ReturnType<Sel>
-  ) => void;
+    mtr: Mtr
+  ): Readonly<ReturnType<Mtr> extends void ? ReturnType<Sel> : ReturnType<Mtr>>;
 }

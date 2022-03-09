@@ -1,7 +1,13 @@
-// https://github.com/you-dont-need/You-Dont-Need-Lodash-Underscore/issues/121#issuecomment-789936075
+import { deserialize, serialize } from 'v8';
 
-export const deepClone = <T extends object>(o: T): T => {
-  if (Array.isArray(o)) return o.map(deepClone) as never;
-  if (typeof o !== 'object') return o;
-  return Object.fromEntries(Object.entries(o).map(([k, v]) => [k, deepClone(v)])) as T;
-};
+import { isEmpty } from '.';
+
+// export const deepClone = <T>(o: T): T => {
+//   if (isEmpty(o)) return o;
+//   return deserialize(serialize(o));
+// };
+
+export function deepClone<T>(o: T): T {
+  if (isEmpty(o)) return o;
+  return deserialize(serialize(o));
+}
