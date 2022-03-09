@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Path } from '../types.d';
-import { fromPaths, isEmpty } from '@devutnia/toolbox';
+import { fromPaths, isEmpty } from '@devutnia/toolbelt';
+
+type Path = { steps: string[]; key: string };
 
 export const logic = {
   recontext: <T>(o: T, n: T extends object ? Partial<T> : T) => {
-    if (typeof o !== 'object') o = n as never;
+    if (typeof o !== 'object') o = n as T;
     else o = Object.assign({ d: o }, { d: n }).d as T;
     return o;
   },
-  selectorPath: <Sel extends (src: any) => any>(sel: Sel): Path => {
+  selectorPath: <Sel extends (src: never) => never>(sel: Sel): Path => {
     const path = sel.toString();
     const steps = path.split('.').slice(1);
     const key = steps
@@ -20,8 +21,7 @@ export const logic = {
   },
   grabNearbyPaths: <T>(fibers: Map<string, any>, path: Path) => {
     const o = Object.create({});
-    for (const [k, v] of fibers.entries())
-      k.includes(path.steps[0]) && (o[k] = v);
+    for (const [k, v] of fibers.entries()) k.includes(path.steps[0]) && (o[k] = v);
     return o as T;
   },
   checkPathForClues: <T>(fibers: Map<string, any>, path: Path) => {
