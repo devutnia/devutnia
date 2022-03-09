@@ -2,7 +2,7 @@ import { isEqual, deepClone, deepFreeze } from '@devutnia/toolbelt';
 
 import { logic } from './logic';
 import { source } from './source';
-import { Next, ContextFiber, ContextImpulse } from '../types.d';
+import { Next, ContextFiber, ContextImpulse } from '../types';
 
 export const context = <Src extends Record<keyof Src, Src[keyof Src]>>(
   src: Src
