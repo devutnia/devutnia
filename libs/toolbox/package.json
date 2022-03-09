@@ -1,4 +1,7 @@
 {
   "name": "@devutnia/toolbox",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "flat": "^5.0.2"
+  }
 }

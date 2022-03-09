@@ -1,0 +1,34 @@
+{
+  "root": "libs/cortext",
+  "sourceRoot": "libs/cortext/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/cortext/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/cortext"],
+      "options": {
+        "jestConfig": "libs/cortext/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "build": {
+      "executor": "@nrwl/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/cortext",
+        "tsConfig": "libs/cortext/tsconfig.lib.json",
+        "packageJson": "libs/cortext/package.json",
+        "main": "libs/cortext/src/index.ts",
+        "assets": ["libs/cortext/*.md"]
+      }
+    }
+  },
+  "tags": []
+}

@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@devutnia/cortext": ["libs/cortext/src/index.ts"],
       "@devutnia/toolbox": ["libs/toolbox/src/index.ts"]
     }
   },
