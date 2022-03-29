@@ -1,0 +1,12 @@
+{
+  "name": "Lumberyard",
+  "version": "0.0.1",
+  "description": "This is a wallet application for connecting developers with Devutnia's services",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "1024": "assets/dev_.webp"
+    }
+  }
+}

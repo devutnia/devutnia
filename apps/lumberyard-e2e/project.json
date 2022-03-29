@@ -1,0 +1,28 @@
+{
+  "root": "apps/lumberyard-e2e",
+  "sourceRoot": "apps/lumberyard-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/lumberyard-e2e/cypress.json",
+        "devServerTarget": "lumberyard:serve"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "lumberyard:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/lumberyard-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["lumberyard"]
+}
