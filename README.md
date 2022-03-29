@@ -1,3 +1,6 @@
 
+this is a work in progress
 
-# Devutnia
+# Devutnia (devootnia)
+
+### JUNIOR ORIENTED SOFTWARE DELIVERY COLLECTIVE and DAO
