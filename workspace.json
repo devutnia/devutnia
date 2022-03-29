@@ -1,7 +1,4 @@
 {
   "version": 2,
-  "projects": {
-    "cortext": "libs/cortext",
-    "toolbox": "libs/toolbox"
-  }
+  "projects": {}
 }
