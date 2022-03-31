@@ -1,4 +1,4 @@
-this is a work in progress<br>
+> this is a work in progress<br>
 
 # DEVUTNIA (devootnia)
 
@@ -12,13 +12,15 @@ It can be read in parts and you should be able to enjoy it too. If the experienc
 
 ```javascript
 if (you.includes('time') || you.includes('beverage')) return menu.skip();
-else return menu.read();
+else return menu.use();
 ```
+
+<br>
 
 
 ## MENU:
 
-> the menu doesn't seem to work properly here so head on to [Devutnia's GitHub manifesto]() for better reader-experience
+> the menu doesn't seem to work properly here so head on to [Devutnia's GitHub manifesto](https://github.com/devutnia/devutnia/blob/devutnia/README.md#1-origin-story-chapters) for better menu-user-experience
 
 ### 1) Origin story chapters
 - [Devutnia is no ordinary company](#devutnia-is-no-ordinary-company)
@@ -31,9 +33,12 @@ else return menu.read();
 - ["These aren't the droids you're looking for"](#these-arent-the-droids-youre-looking-for)
 - [Attack of the clones](#attack-of-the-clones)
 - [How about... a holocratic DAO?](#how-about-a-holocratic-dao)
+
+### 2) Business story chapters
 - ["All your base are belong to us"](#all-your-base-are-belong-to-us)
 - [What's in it for you and and what's in it for Devutnia?](#whats-in-it-for-you-and-whats-in-it-for-devutnia)
 
+<br>
 
 ##  1) Origin story
 
@@ -41,6 +46,8 @@ else return menu.read();
 What makes us different? We're here for the juniors, not the other way around.
 
 The word `devutnia` doesn't exist. Part of it was borrowed from a Polish word `drewutnia` (drevootnia) which translates to `lumberyard` or `woodshed` and it means `a place where they shape wood`. Devutnia shapes developers. 
+
+Devutnia's founders know what a "misfit" means. We are neuro-atypical and we want to help people like us figure out their own path in the world of technology.
 
 #### Not quite the origin story
 Devutnia started as a brand of an IT/Graphic Design [company](https://sasulla.com/) my wife and I own. My wife designs logos and brand books and draws illustrations for books. I work as a CTO in an open-science startup and I am a dev-for-hire. I mentor juniors, I lead IT projects and I dabble in software architecture.
@@ -66,7 +73,7 @@ At that point in my life I have had enough of people misusing my engagement in t
 Sadly, there is no personal approach in corporations. They advertise it on their websites and they talk about it on their onboardings, but when push comes to shove, there is no personal approach, because managers are stuck in a rat race. There is a long line of people between what the company wants and what employees get, so how can it ever get personal?
 
 #### I am a big boy now!
-The revelation of lack of personal approach freed me from the corporate ladder's chains. Going unemployed ($200 a month - state funded) for 4 months before finding my first internship and then starting an IT company 2 years later was the single best decision in my life. Turns out, all I needed was a bit of creative space coming from me being my own boss and a bit of responsibility for my own decisions. I became a CTO of an open-science startup with only 11 months of experience (now, thinking back on it, it was a huge mistake - **don't ever use juniors to lead your IT project unsupervised!**).
+The revelation about the lack of personal approach freed me from the corporate ladder's chains. Going unemployed ($200 a month - state funded) for 4 months before finding my first internship and then starting an IT company 2 years later was the single best decision in my life. Turns out, all I needed was a bit of creative space coming from me being my own boss and a bit of responsibility for my own decisions. I became a CTO of an open-science startup with only 11 months of experience (now, thinking back on it, it was a huge mistake - **don't ever use juniors to lead your IT project unsupervised!**).
 
 ![](https://media.giphy.com/media/iOQXDQUqI0gdq/giphy.gif)
 
@@ -99,22 +106,28 @@ My idea is a holocratic DAO, where juniors have real access to real life project
 
 There is no micro-management in Devutnia. We adhere to holocratic values. Your experience and opinions are important for Devutnia's future and I believe that applying personal approach and understanding each other's personalities makes for a smoother team experience. 
 
+Devutnia 1.0 could not function in its original form.
+
+<br>
+
+##  2) Business story
+
 #### "All your base are belong to us"
 Devutnia started as a self-funded and bootstrapped project. I have been working 2-3 jobs my entire career (again, atypical nature, I can work 30+hrs straight if I am into it) so I had some extra funds put away to invest. I came up with Devutnia 1.0 (not a DAO yet) in July 2021. I gathered a community of 50 juniors (some are still active) and I applied my own ideas of running a co-shared business.
 
-I tried running Devutnia through my company, but the recent changes in my country's fiscal system have made it very difficult for me to hire juniors per task/hour. There are many juniors who shift careers and they often are unemployed in-between. In my country, it is illegal for me to hire them in the most convenient way for them (a contract - they get most money), because I have to offer an unemployed person a full-time position. If I were to do that, my whole budget would be gone very fast and I wouldn't be able to help as many people as I'd like. I wont to efficiently help juniors on a per task basis. I can't do that when I am worried that I can't afford to pay all the fiscal duties to the gov't BEFORE I can even pay my employees. My inner righteous-self gets super unhappy about it.
-
-Devutnia 1.0 could not function in its original form.
+I tried running Devutnia through my company, but the recent changes in my country's fiscal system have made it very difficult for me to hire juniors per task/hour. There are many juniors who shift careers and they often are unemployed in-between. In my country, it is illegal for me to hire them in the most convenient way for them (a contract - they get more money), because I have to offer an unemployed person a full-time position. If I were to do that, my whole budget would be gone very fast and I wouldn't be able to help as many people as I'd like. I want to efficiently help juniors on a per task basis. I can't do that when I am worried that I can't afford to pay all the fiscal duties to the gov't BEFORE I can even pay my employees. My inner righteous-self gets super unhappy about it.
 
 #### What's in it for you and what's in it for Devutnia?
 My reasons for starting Devutnia are multilevel. They are opportunistic/altruistic/pragmatic/realistic/meritocratic and capitalistic on top of all that. You are responsible for making a name for yourself here. The senior staff is here to help you discover who you are as a developer and as a self-made person. We will help you realise your ideas if we see you understand the problem you're fixing.
 
-- Our opportunity is that we grow a net of vetted, clever and talented people, whom we help progress in their careers.<br>
+- Our opportunity is that we grow a net of vetted, clever and talented people, that we help progress in their careers.<br>
 - Your opportunity is that you get a framework to build your career in software development, you get access to real-life engineers, leaders and specialists who will "get real" with you on your ideas and help you figure out how to improve them. <br>
-- Our opportunity is that we will be able to hire you, recommend you to our partners and guide you during you career for a chance of being partners with you in your future endeavours.<br>
+- Our opportunity is that we will be able to hire you, recommend you to our partners and guide you during your career for a chance of being partners with you in your future endeavours.<br>
 - Your opportunity is that we will pay you during your training on real-life projects with Devutnia's partners.<br>
 - Our opportunity is that you will help other juniors on our platform and help us grow our culture of software development.<br>
 - Your opportunity is that we help you build your brand as a developer and we help you find which IT branch gives you most fun.<br>
+- Our opportunity is that Devutnia will become a long term employment solution for people who can't get jobs in IT otherwise.<br>
+- Your opportunity is that thanks to Devutnia using a DAO contract, your work actually means something and mines Devutnia's shares, so through your work, you ensure Devutnia's worth isn't some blown out-of-proportions baloon that can burst any minute - in short: your work determines Devutnia's future too.<br>
 
 ### How does it work?
 
