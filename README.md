@@ -6,23 +6,36 @@
 
 This is a lengthy read. It should give you an idea of what Devutnia is about, who is responsible for it and why it was created in the first place. This manifesto is being written with an intention of having a convenient flow that leads you through whats and whys of Devutnia's existence.
 
-It can be read in parts and you should be able to enjoy it too. If the experience isn't enjoyable for you, please open an issue on GitHub and we'll discuss what to do with it (`"It's too long"` doesn't count though). I find playing with words quite amusing, so every feedback helps to hone my skills in this department.
+It can be read in parts and you should be able to enjoy it too. If the experience isn't enjoyable for you, please open an [issue on GitHub](https://github.com/devutnia/devutnia/issues/new) and we'll discuss what to do with it (`"It's too long"` doesn't count though). I find playing with words quite amusing, so every feedback helps to hone my skills in this department.
+
+This manifesto is to introduce Devutnia to you and give you time to think if you want to support us with your skills or your money. We're not asking for money now, because we have yet to prove ourselves, that we can deliver. Hedera's hackathon is a perfect challenge to prove our worth and maybe win something to help use kick-start this project.
+
+Read the manifesto, think it over and wait for our results first, before you give us your time and money.
+
+If, after reading this you still want to help us, head on to [talents](#how-hard-can-it-be) section to find what you're looking for.
 
 <br>
 
 ```javascript
-if (you.includes('time') || you.includes('beverage')) return menu.skip();
-else return menu.use();
+if (you.includes('time') || you.includes('beverage')) return Menus.skip();
+else return SeriousMenu.use();
 ```
 
 <br>
 
 
-## MENU:
+## MENUS:
 
-> the menu doesn't seem to work properly here so head on to [Devutnia's GitHub manifesto](https://github.com/devutnia/devutnia/blob/devutnia/README.md#1-origin-story-chapters) for better menu-user-experience
+### Serious menu:
+- [DAO](#so-what-about-that-dao)
+- [Blockchain solution](#why-hedera)
+- [NFTs](#all-right-then-but-will-there-be-nfts)
+- [Roadmap](#roadmap-what-roadmap)
+- [Team](#there-is-however-a-team)
+- [Contact us](#contact-us)
 
-### 1) Origin story chapters
+### Real life menu:
+#### 1) Origin story chapters
 - [Devutnia is no ordinary company](#devutnia-is-no-ordinary-company)
 - [Not quite the origin story](#not-quite-the-origin-story)
 - [Why am I even here](#why-am-i-even-here)
@@ -34,16 +47,31 @@ else return menu.use();
 - [Attack of the clones](#attack-of-the-clones)
 - [How about... a holocratic DAO?](#how-about-a-holocratic-dao)
 
-### 2) Business story chapters
+#### 2) Business story chapters
 - ["All your base are belong to us"](#all-your-base-are-belong-to-us)
-- [What's in it for you and and what's in it for Devutnia?](#whats-in-it-for-you-and-whats-in-it-for-devutnia)
+- [Fight the system, fix the system!](#fight-the-system-fix-the-system)
+- [So what about that DAO?](#so-what-about-that-dao)
+- [Why Hedera?](#why-hedera)
+- [Why not Ethereum though?](#why-not-ethereum-though)
+- [All right then, but will there be NFTs?](#all-right-then-but-will-there-be-nfts)
+- [Henlo, this not it](#henlo-this-not-it)
+- [Unicorns and rainbows don't make money](#unicorns-and-rainbows-dont-make-money)
+- [Say I want to participate, where is your pitchdeck?](#say-i-want-to-participate-where-is-your-pitchdeck)
+- [Roadmap? What roadmap?](#roadmap-what-roadmap)
+- [What's in it for me and what's in it for you?](#whats-in-it-for-me-and-whats-in-it-for-you)
+- [Contact us](#contact-us)
+
+### 3) Human story chapters
+- [There is no "I" in "team"](#there-is-no-i-in-team)
+- [There is, however, a team](#there-is-however-a-team)
+- [How hard can it be?](#how-hard-can-it-be)
 
 <br>
 
 ##  1) Origin story
 
 #### Devutnia is no ordinary company
-What makes us different? We're here for the juniors, not the other way around.
+What makes us different? We work for the juniors, we don't work the juniors.
 
 The word `devutnia` doesn't exist. Part of it was borrowed from a Polish word `drewutnia` (drevootnia) which translates to `lumberyard` or `woodshed` and it means `a place where they shape wood`. Devutnia shapes developers. 
 
@@ -115,9 +143,103 @@ Devutnia 1.0 could not function in its original form.
 #### "All your base are belong to us"
 Devutnia started as a self-funded and bootstrapped project. I have been working 2-3 jobs my entire career (again, atypical nature, I can work 30+hrs straight if I am into it) so I had some extra funds put away to invest. I came up with Devutnia 1.0 (not a DAO yet) in July 2021. I gathered a community of 50 juniors (some are still active) and I applied my own ideas of running a co-shared business.
 
-I tried running Devutnia through my company, but the recent changes in my country's fiscal system have made it very difficult for me to hire juniors per task/hour. There are many juniors who shift careers and they often are unemployed in-between. In my country, it is illegal for me to hire them in the most convenient way for them (a contract - they get more money), because I have to offer an unemployed person a full-time position. If I were to do that, my whole budget would be gone very fast and I wouldn't be able to help as many people as I'd like. I want to efficiently help juniors on a per task basis. I can't do that when I am worried that I can't afford to pay all the fiscal duties to the gov't BEFORE I can even pay my employees. My inner righteous-self gets super unhappy about it.
+I tried running Devutnia through my company, but the recent changes in my country's fiscal system made it very difficult for me to hire juniors per task/hour. There are many juniors who shift careers and they often are unemployed in-between. In my country, it is illegal for me to hire them in the most convenient way for them (a contract - they get more money), because I have to offer an unemployed person a full-time position. If I were to do that, my whole budget would be gone very fast and I wouldn't be able to help as many people as I'd like. I want to efficiently help juniors on a per task basis. The system does not help me help them help other people change their careers.
 
-#### What's in it for you and what's in it for Devutnia?
+![](https://media.giphy.com/media/3o7abENd9u5hy1H0s0/giphy.gif)
+
+#### Fight the system, fix the system!
+My inner righteous self gets super unhappy about governements regulating things in such short sighted way. I have MSc in Economics. My bachelor thesis back in 2014 was: "The barriers of running micro and small companies". I wrote it based on my business of selling insurance, which failed. I do not have the personality to sell things to people - I can read their haptics and see they don't like it. I know how to run a business, I know how it is to fail in business and I know what a business needs.
+
+Governements are like school systems. They offer boxes and you HAVE TO fit in them. These boxes are good for some things and terrible for others. It is unreasonable to expect that the gov't is able to service every single citizen's needs. It is reasonable though, to expect that you will be left alone to do your business and decide how much and how you want to contribute to society. It should also be up to you to decide how much money you want to give to help the government run the country. Nothing is for free and our politicians flying around the world is paid for by us.
+
+Imagine you are a businessperson in a country that started a war. You are fucked and you support the war with the tax money you pay for running a business in that country. Your personal opinions do not matter. If you want to eat, you have to work. If you speak wrong, your freedoms are taken away. You will not be able to find a job in a country engaged in a war. Imagine that your self employment is the life line between happiness and pain. And now imagine where your taxes go when they don't support your local micro-economy.
+
+Some existing systems are good, but they need the software update. Some could even work from home.
+
+It is not that I am an anarchist. I am a non-conformist. Alas, here's to freedom-encroaching systems:
+
+![](https://media.giphy.com/media/0A8NvMIMZDDU7PwnL9/giphy.gif)
+
+#### So what about that DAO?
+I was prepared and I was waiting for a good moment to start with Devutnia 2.0. Apparently lady Karma was supportive of my endeavours because I was able to build a team of amazing talents and Hedera came up with a cool Hackathon, which just happens to corelate with my exact needs. I feel that each person in our team is in the exact moment to make another big step in their careers and there's just too much luck flying around not to reach out and grab some.
+
+Devutnia's team is working on a blockchain contract that describes Devutnia's rules and regulations of participating in this collective. We are building this DAO on Hedera, because my philosophy behind Devutnia works with this blockchain.
+
+There will be 4 levels of participation in Devutnia's DAO:
+- core team - (lumberjacks) - people who invest their time, work and money to help juniors and other developers achieve their potential. This team is what makes Devutnia go round. If you decide to join in this team, we expect you will be openly communicating with us, that you will be working with us on developing cool products and bettering the IT world.
+- mentors - (overseers) - people who build teams of juniors and mentor them on different projects. They are the pilars of Devutnia's community, providing knowledge, direction and "IT-awareness" to their teams.
+- developers - (carpenters) - people who join Devutnia, because they want to learn about building software products and hope to become IT business owners themselves. They want to be included in building Devutnia, but not really engage too much until they are sure for themselves.
+- developers - (woodpeckers) - developers who participate in Devutnia to moonlight, find cool people to build their own projects with (and Devutnia's help) and make some money on the side and some tokens for that cold wallet.
+
+> I know these team names are cheesy. I am cheesy. 
+
+These levels are fluid. You can change them at will. Going down the levels is easy. Going up requires some elbow grease (you can always buy an [NFT](#all-right-then-but-will-there-be-nfts) to cut it short - support the artist, support Devutnia). Your level doesn't prevent you from making decisions in Devutnia. It is going to be a DAO - if you invest your work with us, you have something to say.
+
+We have these levels, because we apply certain responsibility to people being on these levels. We don't care about KPIs and SLAs (we do, but not in a crunchy way). We care that developers who work with us learn about building IT projects, we care that peoples' personalities are taken into consideration and we care that people communicate their problems, so that they can be fixed before they really become one.
+
+"Sometimes the simplest solutions are in the words unspoken" - Cheesee Cheesington
+
+#### Why Hedera?
+I am old-school in many ways. Sort of like an Atari console. I used to break joysticks playing Boulder Dash... Anyway, I come from open-science and fighting paywalls. I understand the actual need for blockchain and its technologies. I want to use blockchain to build useful utilities that:
+- last on the Internet forever - hello web archive,
+- are used every day by every one - hello `<button>`, 
+- actually support artists' work - hello NFTs,
+- claim to be eco-friendly - hello Hedera, 
+- don't have [The Wall](https://gameofthrones.fandom.com/wiki/Wall) of a paywall to enter the fun - hello gas and minting fees and goodbye Ethereum.
+
+I started thinking about creating some kind of Devutnia's token in July last year. I didn't know much about it though (from developer's perspective), so I set my organic filters on finding out about available technologies and reading their docs. Standard dev research.
+
+#### Why not Ethereum though?
+I have been watching [Cofeezilla](https://www.youtube.com/c/Coffeezilla) for the last 3 years and I am aware of how Ethereum is used. I was still going to give it a chance, because it's foolish to judge a tool before learning how it works. Also, creating something unique (I have some ideas) on Ethereum was likely to give me resources to start Devutnia for real. There was one problem though. It was very **expensive** to enter. The prices of gas now, versus two years ago are multiple times higher! 
+
+`Everything costs` you might say. I just wrote a few chapters above that nothing's free. Am I a hypocrite? Maybe. But have you given a thought as to way Ethereum is so expensive to create things with? Because it's popular. Because there are thousands of copies of the same tokens and NFTs and thousands of exactly the same contracts polluting the chain with their unnecessarily overblown valuations and calculations. I am sort of a technological purist - I can't participate in something that I think is broken and I don't see it getting fixed. I don't think it can be fixed, so I can't be there when it breaks, because I will never forgive myself for being greedy, cutting corners and killing this idea.
+
+I know there are L2 levels of Ethereum that are cheaper and faster, but why do I have to be bumped to a lower category of blockchain users, when I can't afford the entry fee to the main one that gets me the best chances of succeeding? Where's decentralisation in that? It's like a club of 1% whales. You can't make money there if you want to play fair is what it seems to me is happening with this chain.
+
+#### All right then, but will there be NFTs?
+Of course. For me NFTs are **digital patronage**. It is a way of appreciating the artist for their contribution.
+
+Devutnia's NFTs will increase their value each time they get used on the Internet. If you're familiar with BitClout's concept (their idea was brilliant, the execution I leave without a comment), this is what we're aiming for with our NFTs. Each time they're used, their original creator benefits from it along with the NFTs owner. I can't imagine doing it any other way and Hedera with their almost non-existent paywalls and gas fees (comparing to Ethereum) is a perfect place to let users cheaply and safely create and exchange valuable digital work.
+
+There will be different kinds of NFTs on the platform. One of them will be Devutnia's avatars (see: Devutnia's logo), hand drawn in style by my better half [Ula](https://sasulla.com) based on the picture you provide. Devutnia is friends with many [amazing digital artists]() and we can make sure that your NFT experience at Devutnia **IS** unique.
+
+#### Henlo, this not it
+![](https://media.giphy.com/media/8FUmlOoL72HB3rR7wm/giphy.gif)
+
+Devutnia's NFTs are not here to make you rich.
+
+This is why Hedera works so nice with Devutnia's idea. They intend to keep it a stable coin. "Stable" means unobstructed business. It also means that there will be no weird scams going on here, that artificially blow up the coins valuation and the chain's fees. I can trust this coin enough to build my ideas here.
+
+If you're here to get rich quick, this is not it. I am building Devutnia as a long term solution for hiring and training people who can't help themselves otherwise, because they don't fit the "market expectations" but they have other skills that make them really good in IT anyway.
+
+I want to use NFTs to provide resources to properly train and hire devs. I want to fix the market, but the methods I have been using so far (bootstrapping and hiring juniors out of my pocket) are inefficient. When you buy our NFTs, our tokens or help us with your work, we support artists and developers who created these digital assets. They should also be able to benefit from it. The Web3 Internet and Hedera blockchain make it a reality within our reach - **true digital patronage** that goes to the artist, not to the whales.
+
+If you want to start fixing the blockchain (Devutnia can't do it alone), help us however you can and we'll help you however we can. 
+
+#### Unicorns and rainbows don't make money
+Neither does not doing something. The Devutnia's [engagement levels](#so-what-about-that-dao) will allow you to support Devutnia and its juniors by buying NFTs. These NFTs will also be your customised Avatars to use within Devutnia's infrastructure and wherever you like.
+
+NFTs are not the only way WE want to support ourselves. There are 4 products on Devutnia's road map:
+- a chrome extension that is a wallet connecting Devutnia's developers to Hedera's features and Devutnia's dApps.
+- Devutnia's TaaS (talent as a service) dApp platform that allows developers to build teams, find mentors, job offers, talents and skills. 
+- Devutnia's no-code dApp tool for building POC/MVP applications for micro-teams and solo-founders.
+- Devutnia's NFT marketplace dApp where users can buy and sell their digital work created using Devutnia's services.
+
+We will also be creating many dev-ex-oriented open-source tools and supporting entrepreneurial juniors' ideas. We can do it, but we need some help from you.
+
+#### Say I want to participate, where is your pitchdeck?
+This is the pitchdeck. I am the pitchdeck. I have tried creating "proper" pitchdecks for my other ideas and they all sucked (both pitchdecks and ideas). This manifesto is my atypical entry into startup life. This time I am doing it the "wrong way", to see if reality punches me in the face.
+
+Support me, support Devutnia, support my support of people switching careers and learning tricks of trade. Support us by buying our NFTs, hiring us in your projects, joining one of our teams or simply [talking about us](#contact-us) or following in our footsteps and fixing something small around you. Every little step counts.
+
+#### Roadmap? What roadmap?
+Let's get serious. I am working on a roadmap done the "wrong way". I will post it here when it's ready. Until then, if you want to know about the roadmap head on [here](#unicorns-and-rainbows-dont-make-money) and return in a few days.
+
+The product development plan I have is quite solid. After developing the wallet chrome extension we can start developing the rest of the products in any order. Building any product gives us a head start at building all the others.
+
+Let us know if one of our products interests you and we can pivot our roadmap if you are convincing ;)
+
+#### What's in it for me and what's in it for you?
 My reasons for starting Devutnia are multilevel. They are opportunistic/altruistic/pragmatic/realistic/meritocratic and capitalistic on top of all that. You are responsible for making a name for yourself here. The senior staff is here to help you discover who you are as a developer and as a self-made person. We will help you realise your ideas if we see you understand the problem you're fixing.
 
 - Our opportunity is that we grow a net of vetted, clever and talented people, that we help progress in their careers.<br>
@@ -125,18 +247,41 @@ My reasons for starting Devutnia are multilevel. They are opportunistic/altruist
 - Our opportunity is that we will be able to hire you, recommend you to our partners and guide you during your career for a chance of being partners with you in your future endeavours.<br>
 - Your opportunity is that we will pay you during your training on real-life projects with Devutnia's partners.<br>
 - Our opportunity is that you will help other juniors on our platform and help us grow our culture of software development.<br>
-- Your opportunity is that we help you build your brand as a developer and we help you find which IT branch gives you most fun.<br>
+- Your opportunity is that we'll help you build your brand as a developer and find which IT branch gives you most fun.<br>
 - Our opportunity is that Devutnia will become a long term employment solution for people who can't get jobs in IT otherwise.<br>
-- Your opportunity is that thanks to Devutnia using a DAO contract, your work actually means something and mines Devutnia's shares, so through your work, you ensure Devutnia's worth isn't some blown out-of-proportions baloon that can burst any minute - in short: your work determines Devutnia's future too.<br>
+- Your opportunity is that thanks to Devutnia using a DAO contract, your work actually means something and mines Devutnia's pool tokens, so through your work, you ensure Devutnia's worth isn't some blown out-of-proportions baloon that can burst any minute - in short: your work determines Devutnia's future too.<br>
 
-### How does it work?
+<br>
 
-### How I built it
+##  3) Human story
 
-##### Challenges I ran into
+> Human story chapters are being created. These kinds of stories always take the longest :)
 
-##### Accomplishments that I'm proud of
+#### There is no "I" in "team"
+Devutnia lives in my head. I have to write it down, so until initial Devutnia's chapters are written down, "I" will be the voice of the "team".
 
-##### What I learned
+If you want to know what kind of voice you're dealing with, head on to the [first](#devutnia-is-no-ordinary-company) chapter
 
-##### What's next for Devutnia
+#### There is, however, a team
+Devutnia's core consists of 4 people. Some of us had successful startups, some of us still learn. Most of us are neuro-atypical and neither of us knows what we're doing :D
+
+![](https://media.giphy.com/media/sgZdwNkOH43wZOEUJ2/giphy.gif)
+
+Each team member will write their own chapters here, so if you want to get to know them, visit us again in a few days.
+
+#### How hard can it be?
+If you have it in you and want to help Devutnia, reach out to us on our [regular channels](#regular-channels).
+
+If you are a CEO that sees potential in this project - join our core team. Your help will definitely speed things up. Most of us is already after our first startup rodeo, but new perspective always helps.
+
+If you think crowdfunding would be a good idea and you like this project - join our core team. We have a team of UX designers and a graphic designer who can help you create a campaign. Make a name for yourself while making a name for Devutnia.
+
+### Contact us
+If you are on social media, you can follow us on [regular channels](#regular-channels) or hit us up on [Slack](https://join.slack.com/t/devutnia/shared_invite/zt-uauopfmu-tEGDHG5e8MimoMirYoErGg)
+
+#### Regular channels:
+- [twitter](https://twitter.com/devutnia)
+- [facebook](https://facebook.com/devutnia)
+- [linkedin](https://linkedin.com/company/devutnia)
+- [github - Mat](https://github.com/NorweskiDrwal/)
+- [github - Devutnia](https://github.com/devutnia/)
