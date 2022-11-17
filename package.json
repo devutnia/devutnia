@@ -6,8 +6,8 @@
     "back:run": "nx run devutnia-back:serve",
     "back:build": "npm run front:back:link && nx run devutnia-back:build",
     "back:pack": "npm run front:back:link && cd packages/devutnia-back && npm run pack",
-    "front:run": "nx run devutnia-front:serve",
-    "front:build": "nx run devutnia-front:build",
+    "front:run": "cd packages/devutnia-front && npm run serve",
+    "front:build": "cd packages/devutnia-front && npm run build",
     "front:back:link": "nx build devutnia-front --outputPath=packages/devutnia-back/src/front",
     "devutnia:bundle": "cd packages/devutnia-back && npm run bundle",
     "devutnia:exe": "./dist/bins/devutnia-exe"
@@ -21,6 +21,7 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@nrwl/esbuild": "^15.1.1",
     "@nrwl/eslint-plugin-nx": "15.1.1",
     "@nrwl/express": "15.1.1",
     "@nrwl/jest": "15.1.1",

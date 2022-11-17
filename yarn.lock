@@ -1462,6 +1462,19 @@
     semver "7.3.4"
     tslib "^2.3.0"
 
+"@nrwl/esbuild@^15.1.1":
+  version "15.1.1"
+  resolved "https://registry.yarnpkg.com/@nrwl/esbuild/-/esbuild-15.1.1.tgz#bbaff6c94fab359429b0f861785d0134cca33e0a"
+  integrity sha512-R7yk0BSQo+21gXvt0ytjz5hLuJT6tf8wC+O1EGQiMjTiBUxM2gegpEdmWp2TFymhuXyNYnUwbhSzBxBm6a3kKw==
+  dependencies:
+    "@nrwl/devkit" "15.1.1"
+    "@nrwl/js" "15.1.1"
+    "@nrwl/workspace" "15.1.1"
+    chalk "4.1.0"
+    dotenv "~10.0.0"
+    fs-extra "^10.1.0"
+    tslib "^2.3.0"
+
 "@nrwl/eslint-plugin-nx@15.1.1":
   version "15.1.1"
   resolved "https://registry.yarnpkg.com/@nrwl/eslint-plugin-nx/-/eslint-plugin-nx-15.1.1.tgz#81f568ed9464aa3a2807b55cba56c01c50518af5"

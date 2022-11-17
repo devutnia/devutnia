@@ -21,7 +21,8 @@
         "index": "packages/devutnia-front/src/index.html",
         "baseHref": "/",
         "styles": ["packages/devutnia-front/src/styles.scss"],
-        "scripts": []
+        "scripts": [],
+        "webpackConfig": "packages/devutnia-front/webpack.config.js"
       },
       "configurations": {
         "production": {
