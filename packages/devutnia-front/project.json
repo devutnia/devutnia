@@ -1,0 +1,71 @@
+{
+  "name": "devutnia-front",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/devutnia-front/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nrwl/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/packages/devutnia-front",
+        "compiler": "babel",
+        "main": "packages/devutnia-front/src/main.ts",
+        "tsConfig": "packages/devutnia-front/tsconfig.app.json",
+        "assets": [
+          "packages/devutnia-front/src/favicon.ico",
+          "packages/devutnia-front/src/assets"
+        ],
+        "index": "packages/devutnia-front/src/index.html",
+        "baseHref": "/",
+        "styles": ["packages/devutnia-front/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false,
+          "fileReplacements": [
+            {
+              "replace": "packages/devutnia-front/src/environments/environment.ts",
+              "with": "packages/devutnia-front/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/webpack:dev-server",
+      "options": {
+        "buildTarget": "devutnia-front:build",
+        "proxyConfig": "packages/devutnia-front/proxy.conf.json"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "devutnia-front:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/devutnia-front/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "packages/devutnia-front/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  }
+}

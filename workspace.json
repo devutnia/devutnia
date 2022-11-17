@@ -1,8 +1,0 @@
-{
-  "version": 2,
-  "projects": {
-    "devutnia": "libs/devutnia",
-    "lumberyard": "apps/lumberyard",
-    "lumberyard-e2e": "apps/lumberyard-e2e"
-  }
-}
