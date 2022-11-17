@@ -5,8 +5,8 @@
   "main": "src/main.ts",
   "bin": "../../dist/packages/devutnia-back/main.js",
   "scripts": {
-    "pack": "nx run devutnia-back:build && pkg package.json --compress GZip && mv ../../dist/bins/devutnia-back ../../dist/bins/devutnia-exe",
-    "bundle": "nx build devutnia-front --outputPath=packages/devutnia-back/src/front && nx run devutnia-back:build && pkg package.json --compress GZip && mv ../../dist/bins/devutnia-back ../../dist/bins/devutnia-exe"
+    "pack": "pkg package.json --compress GZip && mv ../../dist/bins/devutnia-back ../../dist/bins/devutnia-exe",
+    "bundle": "nx build devutnia-front --outputPath=packages/devutnia-back/src/front && nx run devutnia-back:build && npm run pack"
   },
   "private": true,
   "dependencies": {

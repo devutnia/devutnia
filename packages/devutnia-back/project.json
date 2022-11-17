@@ -12,7 +12,6 @@
         "compiler": "tsc",
         "outputPath": "dist/packages/devutnia-back",
         "main": "packages/devutnia-back/src/main.ts",
-        "index": "packages/devutnia-back/src/front/index.html",
         "tsConfig": "packages/devutnia-back/tsconfig.app.json",
         "assets": [
           "packages/devutnia-back/src/assets",

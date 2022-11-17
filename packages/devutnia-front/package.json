@@ -3,6 +3,7 @@
   "version": "0.0.2",
   "license": "MIT",
   "main": "src/main.ts",
+  "bin": "../../dist/packages/devutnia-front/main.js",
   "scripts": {
     "serve": "nx run devutnia-front:serve",
     "build": "nx run devutnia-front:build"
