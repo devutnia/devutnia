@@ -13,10 +13,7 @@
         "outputPath": "dist/packages/devutnia-back",
         "main": "packages/devutnia-back/src/main.ts",
         "tsConfig": "packages/devutnia-back/tsconfig.app.json",
-        "assets": [
-          "packages/devutnia-back/src/assets",
-          "packages/devutnia-back/src/front"
-        ]
+        "externalDependencies": "all"
       },
       "configurations": {
         "production": {

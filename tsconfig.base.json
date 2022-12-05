@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@devutnia/cli": ["packages/devutnia-cli/src/index.ts"],
+      "@devutnia/core": ["packages/devutnia-core/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
