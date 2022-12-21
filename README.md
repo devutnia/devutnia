@@ -8,7 +8,7 @@ This is a lengthy read. It should give you an idea of what Devutnia is about, wh
 
 It can be read in parts and you should be able to enjoy it too. If the experience isn't enjoyable for you, please open an [issue on GitHub](https://github.com/devutnia/devutnia/issues/new) and we'll discuss what to do with it (`"It's too long"` doesn't count though). I find playing with words quite amusing, so every feedback helps to hone my skills in this department.
 
-This manifesto is to introduce Devutnia to you and give you time to think if you want to support us with your skills or your money. We're not asking for money now, because we have yet to prove ourselves, that we can deliver. Hedera's hackathon is a perfect challenge to prove our worth and maybe win something to help use kick-start this project.
+This manifesto is to introduce Devutnia to you and give you time to think if you want to support us with your skills or your money. We're not asking for money now, because we have yet to prove ourselves, <strike>that we can deliver. Hedera's hackathon is a perfect challenge to prove our worth and maybe win something to help use kick-start this project.</strike> (update: 21.12.22 - yep, nope, life had other plans, we failed with non-participation).
 
 Read the manifesto, think it over and wait for our results first, before you give us your time and money.
 
