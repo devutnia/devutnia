@@ -4,7 +4,6 @@
 dist
 tmp
 /out-tsc
-bin
 
 # dependencies
 node_modules
@@ -38,3 +37,6 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# Next.js
+.next

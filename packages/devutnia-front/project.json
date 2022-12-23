@@ -1,63 +1,50 @@
 {
   "name": "devutnia-front",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "packages/devutnia-front",
   "projectType": "application",
-  "sourceRoot": "packages/devutnia-front/src",
-  "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/webpack:webpack",
+      "executor": "@nrwl/next:build",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
-        "outputPath": "dist/packages/devutnia-front",
-        "compiler": "babel",
-        "main": "packages/devutnia-front/src/main.ts",
-        "tsConfig": "packages/devutnia-front/tsconfig.app.json",
-        "assets": [
-          "packages/devutnia-front/src/favicon.ico",
-          "packages/devutnia-front/src/assets"
-        ],
-        "index": "packages/devutnia-front/src/index.html",
-        "baseHref": "/",
-        "styles": ["packages/devutnia-front/src/styles.scss"],
-        "scripts": [],
-        "webpackConfig": "packages/devutnia-front/webpack.config.js"
+        "root": "packages/devutnia-front",
+        "outputPath": "dist/packages/devutnia-front"
       },
       "configurations": {
-        "production": {
-          "optimization": true,
-          "outputHashing": "all",
-          "sourceMap": false,
-          "namedChunks": false,
-          "extractLicenses": true,
-          "vendorChunk": false,
-          "fileReplacements": [
-            {
-              "replace": "packages/devutnia-front/src/environments/environment.ts",
-              "with": "packages/devutnia-front/src/environments/environment.prod.ts"
-            }
-          ]
-        }
-      }
+        "development": {
+          "outputPath": "packages/devutnia-front"
+        },
+        "production": {}
+      },
+      "dependsOn": ["build-custom-server"]
     },
     "serve": {
-      "executor": "@nrwl/webpack:dev-server",
+      "executor": "@nrwl/next:server",
+      "defaultConfiguration": "development",
       "options": {
         "buildTarget": "devutnia-front:build",
-        "proxyConfig": "packages/devutnia-front/proxy.conf.json"
+        "dev": true,
+        "customServerTarget": "devutnia-front:serve-custom-server"
       },
       "configurations": {
+        "development": {
+          "buildTarget": "devutnia-front:build:development",
+          "dev": true,
+          "customServerTarget": "devutnia-front:serve-custom-server:development"
+        },
         "production": {
-          "buildTarget": "devutnia-front:build:production"
+          "buildTarget": "devutnia-front:build:production",
+          "dev": false,
+          "customServerTarget": "devutnia-front:serve-custom-server:production"
         }
       }
     },
-    "lint": {
-      "executor": "@nrwl/linter:eslint",
-      "outputs": ["{options.outputFile}"],
+    "export": {
+      "executor": "@nrwl/next:export",
       "options": {
-        "lintFilePatterns": ["packages/devutnia-front/**/*.ts"]
+        "buildTarget": "devutnia-front:build:production"
       }
     },
     "test": {
@@ -67,6 +54,44 @@
         "jestConfig": "packages/devutnia-front/jest.config.ts",
         "passWithNoTests": true
       }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/devutnia-front/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "build-custom-server": {
+      "executor": "@nrwl/js:tsc",
+      "defaultConfiguration": "production",
+      "options": {
+        "outputPath": "dist/packages/devutnia-front",
+        "main": "packages/devutnia-front/server/main.ts",
+        "tsConfig": "packages/devutnia-front/tsconfig.server.json",
+        "clean": false,
+        "assets": []
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve-custom-server": {
+      "executor": "@nrwl/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "devutnia-front:build-custom-server"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "devutnia-front:build-custom-server:development"
+        },
+        "production": {
+          "buildTarget": "devutnia-front:build-custom-server:production"
+        }
+      }
     }
-  }
+  },
+  "tags": []
 }

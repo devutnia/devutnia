@@ -5,8 +5,15 @@
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "MWRhMjQ2MmQtMzU1Ny00MzZlLTg2YzMtOGExNjAxYWUxNDAzfHJlYWQtd3JpdGU="
+        "cacheableOperations": [
+          "build",
+          "lint",
+          "test",
+          "e2e",
+          "build-custom-server",
+          "build-custom-server"
+        ],
+        "accessToken": "OWZhMzAzODAtMTI4ZS00MjAyLTkzMmItZmQwODY3YjY1NGI2fHJlYWQtd3JpdGU="
       }
     }
   },
@@ -18,18 +25,29 @@
       "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
     }
   },
-  "defaultProject": "devutnia-server",
+  "defaultProject": "devutnia-back",
   "generators": {
-    "@nrwl/web:application": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest",
-      "e2eTestRunner": "none"
+    "@nrwl/react": {
+      "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint",
+        "bundler": "vite",
+        "babel": true
+      },
+      "component": {
+        "style": "@emotion/styled"
+      },
+      "library": {
+        "style": "@emotion/styled",
+        "linter": "eslint",
+        "unitTestRunner": "vitest"
+      }
     },
-    "@nrwl/web:library": {
-      "style": "scss",
-      "linter": "eslint",
-      "unitTestRunner": "jest"
+    "@nrwl/next": {
+      "application": {
+        "style": "@emotion/styled",
+        "linter": "eslint"
+      }
     }
   }
 }

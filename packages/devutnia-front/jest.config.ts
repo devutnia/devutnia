@@ -2,10 +2,10 @@
 export default {
   displayName: 'devutnia-front',
   preset: '../../jest.preset.js',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   transform: {
-    '^.+\\.[tj]s$': 'babel-jest',
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nrwl/react/plugins/jest',
+    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nrwl/next/babel'] }],
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   coverageDirectory: '../../coverage/packages/devutnia-front',
 };

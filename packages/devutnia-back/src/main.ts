@@ -8,17 +8,14 @@ import * as path from 'path';
 
 const app = express();
 
-app.use('/', express.static(path.join(__dirname, 'front')));
 app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'front', 'index.html')));
 
 app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to devutnia-back!' });
 });
 
-const port = process.env.port || 1984;
+const port = process.env.port || 3333;
 const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}`);
+  console.log(`Listening at http://localhost:${port}/api`);
 });
 server.on('error', console.error);

@@ -1,10 +1,17 @@
 {
-  "extends": ["../../.eslintrc.json"],
-  "ignorePatterns": ["!**/*"],
+  "extends": [
+    "plugin:@nrwl/nx/react-typescript",
+    "next",
+    "next/core-web-vitals",
+    "../../.eslintrc.json"
+  ],
+  "ignorePatterns": ["!**/*", ".next/**/*"],
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
-      "rules": {}
+      "rules": {
+        "@next/next/no-html-link-for-pages": ["error", "packages/devutnia-front/pages"]
+      }
     },
     {
       "files": ["*.ts", "*.tsx"],
@@ -14,5 +21,11 @@
       "files": ["*.js", "*.jsx"],
       "rules": {}
     }
-  ]
+  ],
+  "rules": {
+    "@next/next/no-html-link-for-pages": "off"
+  },
+  "env": {
+    "jest": true
+  }
 }

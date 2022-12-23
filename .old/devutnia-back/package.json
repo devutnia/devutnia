@@ -1,0 +1,27 @@
+{
+  "version": "0.0.2",
+  "license": "MIT",
+  "main": "src/main.ts",
+  "bin": "../../dist/packages/devutnia-back/main.js",
+  "scripts": {
+    "pack": "nx run devutnia-back:build && pkg package.json --compress GZip && mv ../../dist/bins/devutnia-back ../../dist/bins/devutnia-exe",
+    "bundle": "nx build devutnia-front --outputPath=packages/devutnia-back/src/front && nx run devutnia-back:build && pkg package.json --compress GZip && mv ../../dist/bins/devutnia-back ../../dist/bins/devutnia-exe"
+  },
+  "private": true,
+  "dependencies": {
+    "@trpc/server": "^10.0.0-rc.8",
+    "express": "^4.18.1",
+    "zod": "^3.19.1"
+  },
+  "pkg": {
+    "scripts": "../../dist/packages/devutnia-back/main.js",
+    "assets": [
+      "../../dist/packages/devutnia-back/assets/**/*",
+      "../../dist/packages/devutnia-back/front/**/*"
+    ],
+    "targets": [
+      "node18-macos-x64"
+    ],
+    "outputPath": "../../dist/bins"
+  }
+}
