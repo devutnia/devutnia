@@ -175,8 +175,6 @@ These levels are fluid. You can change them at will. Going down the levels is ea
 
 We have these levels, because we apply certain responsibility to people being on these levels. We don't care about KPIs and SLAs (we do, but not in a crunchy way). We care that developers who work with us learn about building IT projects, we care that peoples' personalities are taken into consideration and we care that people communicate their problems, so that they can be fixed before they really become one.
 
-"Sometimes the simplest solutions are in the words unspoken" - Cheesee Cheesington
-
 #### Why Hedera?
 I am old-school in many ways. Sort of like an Atari console. I used to break joysticks playing Boulder Dash... Anyway, I come from open-science and fighting paywalls. I understand the actual need for blockchain and its technologies. I want to use blockchain to build useful utilities that:
 - last on the Internet forever - hello web archive,
