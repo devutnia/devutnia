@@ -161,8 +161,6 @@ It is not that I am an anarchist. I am a non-conformist. Alas, here's to freedom
 ![](https://media.giphy.com/media/0A8NvMIMZDDU7PwnL9/giphy.gif)
 
 #### So what about that DAO?
-I was prepared and I was waiting for a good moment to start with Devutnia 2.0. Apparently lady Karma was supportive of my endeavours because I was able to build a team of amazing talents and Hedera came up with a cool Hackathon, which just happens to corelate with my exact needs. I feel that each person in our team is in the exact moment to make another big step in their careers and there's just too much luck flying around not to reach out and grab some.
-
 Devutnia's team is working on a blockchain contract that describes Devutnia's rules and regulations of participating in this collective. We are building this DAO on Hedera, because my philosophy behind Devutnia works with this blockchain.
 
 There will be 4 levels of participation in Devutnia's DAO:
