@@ -231,7 +231,7 @@ Support me, support Devutnia, support my support of people switching careers and
 #### Roadmap? What roadmap?
 Let's get serious. I am working on a roadmap done the "wrong way". I will post it here when it's ready. Until then, if you want to know about the roadmap head on [here](#unicorns-and-rainbows-dont-make-money) and return in a few days.
 
-The product development plan I have is quite solid. After developing the wallet chrome extension we can start developing the rest of the products in any order. Building any product gives us a head start at building all the others.
+The product development plan I have is quite solid. After developing the core features of the platform we can start developing the rest of the products in any order. Building any product gives us a head start at building all the others.
 
 Let us know if one of our products interests you and we can pivot our roadmap if you are convincing ;)
 
