@@ -1,11 +1,8 @@
-import { createHost, createProxy, createServer } from './core';
+import { createBackend } from './core';
 
-const host = createHost({
-  routes: {
-    '/': (route) => route.get('/', (_, res) => res.send(`<div>Henlo</div>`)),
-  },
-});
-const proxy = createProxy({ options: { target: 'http://localhost:1984' } });
-const server = createServer({ host, proxy });
+const backend = createBackend();
+const host = backend.host();
+const proxy = backend.proxy();
+const server = backend.server({ host, proxy });
 
 server.listen(1984);

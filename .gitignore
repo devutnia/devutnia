@@ -37,7 +37,8 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/.old
+.old
+.env.local
 
 # Next.js
 .next
