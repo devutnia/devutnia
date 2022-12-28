@@ -1,8 +1,10 @@
 {
   "name": "devutnia",
-  "version": "0.0.0",
+  "version": "0.0.4",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "main": "nx run devutnia:serve"
+  },
   "private": true,
   "dependencies": {
     "@emotion/react": "11.10.5",
@@ -16,6 +18,7 @@
     "@vanilla-extract/css": "^1.9.2",
     "core-js": "^3.6.5",
     "express": "^4.18.1",
+    "http-proxy": "^1.18.1",
     "next": "13.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -27,6 +30,7 @@
     "@babel/preset-react": "^7.14.5",
     "@emotion/babel-plugin": "11.10.5",
     "@nrwl/cypress": "15.3.3",
+    "@nrwl/esbuild": "^15.4.1",
     "@nrwl/eslint-plugin-nx": "15.3.3",
     "@nrwl/express": "15.3.3",
     "@nrwl/jest": "15.3.3",
