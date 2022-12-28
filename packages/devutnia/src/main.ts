@@ -1,9 +1,11 @@
-import { DevutniaHost, DevutniaServer, DevutniaProxy } from './core';
+import { createHost, createProxy, createServer } from './core';
 
-const host = new DevutniaHost();
-const proxy = new DevutniaProxy({ target: 'http://localhost:19840', ws: true });
-const server = new DevutniaServer({ host, proxy });
+const host = createHost({
+  routes: {
+    '/': (route) => route.get('/', (_, res) => res.send(`<div>Henlo</div>`)),
+  },
+});
+const proxy = createProxy({ options: { target: 'http://localhost:1984' } });
+const server = createServer({ host, proxy });
 
-host.addRoute('/', (route) => route.get('/', (_, res) => res.send(`<div>Yo</div>`)));
-
-server.start();
+server.listen(1984);
