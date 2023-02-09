@@ -1,50 +1,38 @@
 {
-  "npmScope": "devutnia",
-  "affected": {
-    "defaultBase": "main"
-  },
-  "cli": {
-    "defaultCollection": "@nrwl/react"
-  },
-  "implicitDependencies": {
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
-    ".eslintrc.json": "*"
-  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": ["build", "lint", "test", "e2e"],
-        "accessToken": "MzdmYzFiZGMtOTZkMy00N2VhLWE0ODItOTcwMDYyODM4ZThifHJlYWQtd3JpdGU="
+        "accessToken": "MWQ1NjFjN2QtYmVmMy00ZjM4LWJjZmYtMjMxMGEzNjc3NmJifHJlYWQtd3JpdGU="
       }
     }
   },
-  "targetDependencies": {
-    "build": [
-      {
-        "target": "build",
-        "projects": "dependencies"
-      }
-    ]
+  "extends": "nx/presets/npm.json",
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "targetDefaults": {
+    "lint": {
+      "inputs": ["default", "{workspaceRoot}/.eslintrc.json"]
+    },
+    "test": {
+      "inputs": ["default", "^default", "{workspaceRoot}/jest.preset.js"]
+    }
   },
   "generators": {
     "@nrwl/react": {
       "application": {
-        "style": "@emotion/styled",
+        "style": "scss",
         "linter": "eslint",
+        "bundler": "vite",
         "babel": true
       },
       "component": {
-        "style": "@emotion/styled"
+        "style": "scss"
       },
       "library": {
-        "style": "@emotion/styled",
+        "style": "scss",
         "linter": "eslint"
       }
     }
-  },
-  "defaultProject": "lumberyard"
+  }
 }
