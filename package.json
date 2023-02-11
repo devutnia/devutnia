@@ -6,11 +6,15 @@
   "repository": "https://github.com/devutnia/devutnia.git",
   "author": "NorweskiDrwal <devutnia@gmail.com>",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "fix": "eslint --fix",
+    "start": "\"ts-node\" ./main.ts",
     "watch": "nodemon --watch \"*.ts\" --exec \"ts-node\" ./main.ts"
   },
   "dependencies": {
+    "esbuild": "^0.17.7",
+    "memfs": "^3.4.13",
     "typescript": "^4.9.5"
   },
   "devDependencies": {

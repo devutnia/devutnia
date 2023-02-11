@@ -1,0 +1,14 @@
+{
+  "name": "devutnia-utils",
+  "version": "0.0.1",
+  "description": "utils for devutnia",
+  "main": "index.ts",
+  "repository": "https://github.com/devutnia/devutnia.git",
+  "author": "NorweskiDrwal <devutnia@gmail.com>",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "private": true,
+  "dependencies": {}
+}

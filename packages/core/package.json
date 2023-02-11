@@ -1,0 +1,13 @@
+{
+  "name": "devutnia-core",
+  "version": "0.0.9",
+  "description": "core features of devutnia",
+  "main": "index.ts",
+  "repository": "https://github.com/devutnia/devutnia.git",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "NorweskiDrwal <devutnia@gmail.com>",
+  "private": true,
+  "license": "MIT"
+}
