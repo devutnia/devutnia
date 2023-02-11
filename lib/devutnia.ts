@@ -1,17 +1,17 @@
 import fs from 'fs';
 import path from 'path';
+import merge from 'deepmerge';
 
-import { loger } from '../utils';
-import * as prints from './prints';
+import { loger } from './loger';
+import { configPrint } from './prints';
 
-import type * as Core from './core';
-
-export { Core, prints };
-export * from './prints';
 export class DevutniaConstructor {
-  private config?: Partial<Core.DevutniaConfig>;
+  private config: Partial<DevutniaConfig> = {
+    dev_key: 'public',
+    yards: [process.cwd()],
+  };
 
-  constructor(config?: Partial<Core.DevutniaConfig>) {
+  constructor(config?: Partial<DevutniaConfig>) {
     this.rootPath = this.rootPath.bind(this);
     this.installer = this.installer.bind(this);
     this.fromRootPath = this.fromRootPath.bind(this);
@@ -19,7 +19,7 @@ export class DevutniaConstructor {
     this.writeConfigAtRoot = this.writeConfigAtRoot.bind(this);
     this.writeRootDirectory = this.writeRootDirectory.bind(this);
 
-    if (config) config = prints.configPrint.parse(config);
+    if (config) this.config = merge(this.config, configPrint.parse(config));
   }
 
   /** Returns Devutnia's root directory path in the filesystem
@@ -32,7 +32,7 @@ export class DevutniaConstructor {
    */
   rootPath(): Readonly<string> {
     const root = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'] || '';
-    return path.join(root!, '/.devutnia');
+    return path.join(root, '/.devutnia');
   }
 
   /** Returns Devutnia's root directory with `sub_path` concatenated to `rootPath()`.
@@ -76,14 +76,14 @@ export class DevutniaConstructor {
    * @param {Partial<DevutniaConfig>} config
    * @param overwrite - optional boolean - defaults to false - overwrite the file if true
    */
-  writeConfigAtRoot(config?: Partial<Core.DevutniaConfig>, overwrite?: boolean) {
-    prints.configPrint.parse(config);
+  writeConfigAtRoot(config?: Partial<DevutniaConfig>, overwrite?: boolean) {
     if (overwrite || !fs.existsSync(this.fromRootPath('/devutnia.config.json'))) {
       loger('info', 'creating root config...');
+
       try {
         fs.writeFileSync(
           this.fromRootPath('/devutnia.config.json'),
-          JSON.stringify({ ...(this.config || {}), ...(config || {}) }),
+          JSON.stringify(merge(this.config, config)),
         );
         loger('info', 'root config created');
       } catch (error: any) {
@@ -109,7 +109,8 @@ export class DevutniaConstructor {
     } else loger('warn', 'root directory already exists - skipping to the next step');
   }
 
-  installer(config?: Partial<Core.DevutniaConfig>) {
+  /** Wraps Devutnia's installation in an `integration flow` */
+  installer(config?: Partial<DevutniaConfig>) {
     loger('info', `starting devutnia's installer...`);
 
     if (config?.dev_key) {
@@ -119,6 +120,43 @@ export class DevutniaConstructor {
     this.writeConfigAtRoot(config);
     loger('info', `installation complete`);
   }
+
+  /** Updates the config file and returns the latest version */
+  updateConfig(config: Partial<DevutniaConfig>) {
+    const file_path = this.fromRootPath('/devutnia.config.json');
+
+    loger('info', 'updating config file...');
+
+    let file_json: string | undefined;
+    try {
+      file_json = fs.readFileSync(file_path, { encoding: 'utf8' });
+    } catch (error) {
+      loger('error', ['updateConfig read file error:', error].join(' '));
+    }
+
+    const file_update = merge(JSON.parse(file_json), config);
+    if (file_json) {
+      try {
+        fs.writeFileSync(file_path, JSON.stringify(file_update), { encoding: 'utf8' });
+      } catch (error) {
+        loger('error', ['updateConfig write file error:', error].join(' '));
+      }
+    }
+
+    return file_update;
+  }
+}
+
+export interface DevutniaConfig {
+  /** The `dev_key` can be found on your Devutnia's profile
+   * @link https://devutnia.com/user/profile
+   */
+  dev_key: string;
+
+  /** This contains a list of paths to projects using Devutnia
+   * @example yards: ['/path/to/project/a', '/path/to/project/b']
+   */
+  yards: string[];
 }
 
 export default DevutniaConstructor;

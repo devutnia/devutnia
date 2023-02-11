@@ -1,8 +1,10 @@
-import Devutnia from './packages/core';
-import DevutniaCli from './packages/cli';
+import Cli from './lib/cli';
+import Devutnia from './lib/devutnia';
 
 const devutnia = new Devutnia();
 
-const cli = new DevutniaCli(devutnia);
+devutnia.updateConfig({ yards: ['/potato/farm'] });
 
-cli.installDevutnia();
+// const cli = new Cli(devutnia);
+
+// cli.installDevutnia();

@@ -13,11 +13,16 @@
     "watch": "nodemon --watch \"*.ts\" --exec \"ts-node\" ./main.ts"
   },
   "dependencies": {
+    "commander": "^10.0.0",
+    "deepmerge": "^4.3.0",
     "esbuild": "^0.17.7",
+    "inquirer": "^8.0.0",
     "memfs": "^3.4.13",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "zod": "^3.20.6"
   },
   "devDependencies": {
+    "@types/inquirer": "^9.0.3",
     "@types/node": "^18.13.0",
     "@typescript-eslint/eslint-plugin": "^5.51.0",
     "@typescript-eslint/parser": "^5.51.0",
@@ -26,8 +31,5 @@
     "eslint-plugin-prettier": "^4.2.1",
     "nodemon": "^2.0.20",
     "ts-node": "^10.9.1"
-  },
-  "workspaces": [
-    "packages/*"
-  ]
+  }
 }
